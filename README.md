@@ -1,5 +1,5 @@
 <div align="center">
-<h1 style="white-space: nowrap;"><img src="images/Unison-logo.png" alt="Unison" height="45"/>: Benchmarking Unified Multimodal Models via Synergistic Understanding and Generation</h1>
+<h1 style="white-space: nowrap;"><img src="images/Unison-logo.png" alt="Unison" height="32"/>: Benchmarking Unified Multimodal Models via Synergistic Understanding and Generation</h1>
 </div>
 
 <div align="center">
