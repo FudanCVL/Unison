@@ -1,4 +1,8 @@
-# Unison: Benchmarking Unified Multimodal Models via Synergistic Understanding and Generation
+<div align="center">
+<img src="images/Unison-logo.png" alt="Unison Logo" width="200"/>
+<br>
+<h1 style="white-space: nowrap;">Unison: Benchmarking Unified Multimodal Models via Synergistic Understanding and Generation</h1>
+</div>
 
 <div align="center">
 <a href='https://arxiv.org/abs/xxxxx'><img src='https://img.shields.io/badge/arXiv-2603.15616-b31b1b.svg'></a> &nbsp;&nbsp;&nbsp;&nbsp;
