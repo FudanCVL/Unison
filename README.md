@@ -26,8 +26,8 @@
 ---
 
 ## News
-- **[2026/06/01]** We release **Unison** and **Unison-Judge**.
-
+- **[2026/06/01]** We release **Unison-Bench** and **Unison-Judge**.
+- **[2026/05/01]** **Unison** has been accepted to ICML 2026.
 ---
 
 ## Getting Started
