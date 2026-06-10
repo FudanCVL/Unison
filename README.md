@@ -13,17 +13,9 @@
 <a href='https://henghuiding.com/Unison'><img src='https://img.shields.io/badge/Project-Page-orange'></a> &nbsp;&nbsp;&nbsp;&nbsp;
 <a href="https://huggingface.co/datasets/FudanCVL/Unison"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Unison-Benchmark-green"></a> &nbsp;&nbsp;&nbsp;&nbsp;
 <a href="https://huggingface.co/FudanCVL/Unison-Judge"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Unison--Judge-Model-green"></a> &nbsp;&nbsp;&nbsp;&nbsp;
-<!--
-<a href=""><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Bench-HF-orange"></a> &nbsp;&nbsp;&nbsp;&nbsp;
-<a href=""><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Demo%20-HF-orange"></a> &nbsp;&nbsp;&nbsp;&nbsp; -->
 </div>
 
 
-
-
-
-
----
 
 ## News
 - **[2026/06/01]** We release **Unison-Bench** and **Unison-Judge**.
