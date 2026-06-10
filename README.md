@@ -2,21 +2,21 @@
 <h1 style="white-space: nowrap;"><img src="images/Unison-logo.png" alt="Unison" height="24.5"/>: Benchmarking Unified Multimodal Models via Synergistic Understanding and Generation</h1>
 </div>
 
-<div align="center">
-<a href='https://arxiv.org/abs/xxxxx'><img src='https://img.shields.io/badge/arXiv-2603.15616-b31b1b.svg'></a> &nbsp;&nbsp;&nbsp;&nbsp;
-<a href='https://henghuiding.com/Unison'><img src='https://img.shields.io/badge/Project-Page-Green'></a> &nbsp;&nbsp;&nbsp;&nbsp;
-<a href="https://huggingface.co/datasets/FudanCVL/Unison"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Unison-Benchmark-orange"></a> &nbsp;&nbsp;&nbsp;&nbsp;
-<a href="https://huggingface.co/FudanCVL/Unison-Judge"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Unison-Judge-Model-orange"></a> &nbsp;&nbsp;&nbsp;&nbsp;
-<!--
-<a href=""><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Bench-HF-orange"></a> &nbsp;&nbsp;&nbsp;&nbsp;
-<a href=""><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Demo%20-HF-orange"></a> &nbsp;&nbsp;&nbsp;&nbsp; -->
-</div>
-
 
 <p align="center"><b><a href="jinyuliuu.github.io">Jinyu Liu</a><sup>1</sup>, <a href="https://scholar.google.com/citations?user=kLY6SUMAAAAJ&hl=en&oi=ao">Xincheng Shuai</a><sup>1</sup>, <a href="henghuiding.com">Henghui Ding</a><sup>1</sup>, <a href="https://scholar.google.com/citations?user=f3_FP8AAAAAJ&hl=en&oi=ao">Yu-Gang Jiang</a><sup>1</sup></b></p>
 <p align="center"><sup>1 </sup>Fudan University</p>
 
 
+
+<div align="center">
+<a href='https://arxiv.org/abs/xxxxx'><img src='https://img.shields.io/badge/arXiv-2603.15616-b31b1b.svg'></a> &nbsp;&nbsp;&nbsp;&nbsp;
+<a href='https://henghuiding.com/Unison'><img src='https://img.shields.io/badge/Project-Page-Green'></a> &nbsp;&nbsp;&nbsp;&nbsp;
+<a href="https://huggingface.co/datasets/FudanCVL/Unison"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Unison-Benchmark-orange"></a> &nbsp;&nbsp;&nbsp;&nbsp;
+<a href="https://huggingface.co/FudanCVL/Unison-Judge"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Unison-Judge--Model-orange"></a> &nbsp;&nbsp;&nbsp;&nbsp;
+<!--
+<a href=""><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Bench-HF-orange"></a> &nbsp;&nbsp;&nbsp;&nbsp;
+<a href=""><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Demo%20-HF-orange"></a> &nbsp;&nbsp;&nbsp;&nbsp; -->
+</div>
 
 
 
