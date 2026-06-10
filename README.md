@@ -26,7 +26,7 @@
 ---
 
 ## News
-- **[2026/06]** Paper accepted to ICML 2026.
+- **[2026/06/01]** We release **Unison** and **Unison-Judge**.
 
 ---
 
