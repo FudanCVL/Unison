@@ -1,0 +1,18 @@
+# Core dependencies shared by the Inference and Evaluation pipelines.
+# Model-specific backends (BAGEL, Janus, SEED-X, Show-o2, TokenFlow, UniWorld,
+# OmniGen2, ILLUME+, D-DiT) each require their own upstream repository and a
+# dedicated conda environment — see the `conda_env` field in the model configs
+# under Inference_Pipeline/config/ and that model's official installation guide.
+
+# --- Inference pipeline ---
+torch
+transformers
+pillow
+numpy
+pandas
+pyyaml
+tqdm
+
+# --- Evaluation pipeline ---
+# The judge talks to the DashScope Qwen3-VL-Plus endpoint via the OpenAI SDK.
+openai

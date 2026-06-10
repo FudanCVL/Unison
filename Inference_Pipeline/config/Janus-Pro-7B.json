@@ -1,0 +1,23 @@
+{
+    "model_name": "Janus-Pro-7B",
+    "model_path": "deepseek-ai/Janus-Pro-7B",
+    "api_type": "janus",
+    "conda_env": "janus",
+    "janus_project_path": "/path/to/Unified_Models/Janus",
+
+    "capabilities": ["understanding", "generation"],
+    "excluded_tasks": ["ME"],
+
+    "inference_mode": "understanding",
+    "output_image_dir": "result/Janus-Pro-7B/images",
+
+    "max_new_tokens": 512,
+    "temperature": 1.0,
+    "do_sample": false,
+    "seed": 666,
+
+    "cfg_weight": 5.0,
+    "parallel_size": 1,
+
+    "description": "Janus-Pro-7B: decoupled visual encoding architecture. Supports understanding and generation, does not support editing."
+}

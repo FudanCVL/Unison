@@ -1,0 +1,22 @@
+{
+    "model_name": "TokenFlow",
+    "understanding_model_path": "ByteFlow-AI/TokenFlow-llava-qwen2.5-14B-finetuning",
+    "generation_model_path": "ByteFlow-AI/TokenFlow-t2i",
+    "tokenizer_path": "/path/to/Unified_Models/TokenFlow/pretrained_ckpts/tokenflow_clipb_32k_enhanced.pt",
+    "api_type": "tokenflow",
+    "conda_env": "tokenflow",
+    "tokenflow_project_path": "/path/to/Unified_Models/TokenFlow",
+
+    "capabilities": ["understanding", "generation"],
+    "excluded_tasks": ["ME"],
+
+    "inference_mode": "understanding",
+    "output_image_dir": "result/TokenFlow/images",
+
+    "max_new_tokens": 512,
+    "cfg_scale": 7.5,
+    "do_sample": false,
+    "seed": 666,
+
+    "description": "TokenFlow: dual-codebook unified tokenizer. understanding uses an i2t LLaVA model, generation uses a t2i autoregressive model. editing is not supported."
+}

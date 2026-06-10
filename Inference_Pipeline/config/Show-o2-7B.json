@@ -1,0 +1,21 @@
+{
+    "model_name": "Show-o2-7B",
+    "model_path": "showlab/show-o2-7B",
+    "llm_model_path": "Qwen/Qwen2.5-7B-Instruct",
+    "vae_model_path": "/path/to/Unified_Models/Show-o/show-o2/Wan2.1_VAE.pth",
+    "api_type": "showo2",
+    "conda_env": "showo2",
+    "showo_project_path": "/path/to/Unified_Models/Show-o",
+
+    "capabilities": ["understanding", "generation"],
+    "excluded_tasks": ["ME"],
+
+    "inference_mode": "understanding",
+    "output_image_dir": "result/Show-o2-7B/images",
+
+    "max_new_tokens": 512,
+    "do_sample": false,
+    "seed": 666,
+
+    "description": "Show-o2-7B: NUS Show Lab unified architecture (NeurIPS 2025). Supports understanding/generation, does not support editing. Requires WanVAE checkpoint."
+}

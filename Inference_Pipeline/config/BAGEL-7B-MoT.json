@@ -1,0 +1,33 @@
+{
+    "model_name": "BAGEL-7B-MoT",
+    "model_path": "ByteDance-Seed/BAGEL-7B-MoT",
+    "api_type": "bagel",
+    "conda_env": "bagel",
+    "inference_function": {
+        "module": "bagel_inference",
+        "function": "bagel_inference_function"
+    },
+    "bagel_project_path": "/path/to/Unified_Models/Bagel",
+    "mode": 1,
+    "gpu_id": 0,
+    
+    "inference_mode": "understanding",
+    "output_image_dir": "result/BAGEL-7B-MoT/images",
+    
+    "max_new_tokens": 8192,
+    "max_think_tokens": 8192,
+    "temperature": 0.3,
+    "do_sample": false,
+    "seed": 666,
+    
+    "image_shapes": [512, 512],
+    "cfg_text_scale": 4.0,
+    "cfg_img_scale": 1.5,
+    "cfg_interval": [0.4, 1.0],
+    "num_timesteps": 50,
+    "timestep_shift": 3.0,
+    "cfg_renorm_min": 0.0,
+    "cfg_renorm_type": "global",
+    
+    "description": "BAGEL-7B-MoT model config. inference_mode options: understanding (image understanding), generation (image generation), editing (image editing)"
+}

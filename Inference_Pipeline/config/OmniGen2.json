@@ -1,0 +1,23 @@
+{
+    "model_name": "OmniGen2",
+    "model_path": "OmniGen2/OmniGen2",
+    "api_type": "omnigen2",
+    "conda_env": "omnigen2",
+    "omnigen2_project_path": "/path/to/Unified_Models/OmniGen2",
+
+    "capabilities": ["understanding", "generation", "editing"],
+
+    "inference_mode": "understanding",
+    "output_image_dir": "result/OmniGen2/images",
+
+    "max_new_tokens": 512,
+    "width": 512,
+    "height": 512,
+    "num_inference_steps": 50,
+    "text_guidance_scale": 5.0,
+    "image_guidance_scale": 2.0,
+    "do_sample": false,
+    "seed": 666,
+
+    "description": "OmniGen2: Vector Space Lab multimodal generation model. understanding uses ChatPipeline (text output), generation/editing use OmniGen2Pipeline."
+}

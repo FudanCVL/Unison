@@ -1,0 +1,19 @@
+{
+    "model_name": "ILLUME-plus-7B",
+    "model_config_path": "/path/to/Unified_Models/ILLUME_plus/configs/example/illume_plus_7b/illume_plus_qwen2_5_7b_stage3.py",
+    "tokenizer_config_path": "/path/to/Unified_Models/ILLUME_plus/configs/example/dualvitok/dualvitok_anyres_max512.py",
+    "diffusion_decoder_path": "/path/to/Unified_Models/ILLUME_plus/checkpoints/dualvitok-sdxl-decoder/",
+    "tokenizer_checkpoint": "/path/to/Unified_Models/ILLUME_plus/checkpoints/dualvitok/pytorch_model.bin",
+    "api_type": "illume",
+    "conda_env": "illume",
+    "illume_project_path": "/path/to/Unified_Models/ILLUME_plus",
+
+    "capabilities": ["understanding", "generation", "editing"],
+
+    "inference_mode": "understanding",
+    "output_image_dir": "result/ILLUME-plus-7B/images",
+
+    "seed": 666,
+
+    "description": "ILLUME+ 7B: dual-codebook visual tokenizer (DualViTok) + SDXL diffusion decoder. Fully supports understanding/generation/editing. Requires local DualViTok checkpoints."
+}

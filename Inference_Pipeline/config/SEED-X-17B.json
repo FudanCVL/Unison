@@ -1,0 +1,18 @@
+{
+    "model_name": "SEED-X-17B",
+    "model_path": "/path/to/Unified_Models/SEED-X/model_weights",
+    "api_type": "seed_x",
+    "conda_env": "seedx",
+    "seed_x_project_path": "/path/to/Unified_Models/SEED-X",
+
+    "capabilities": ["understanding", "generation", "editing"],
+
+    "inference_mode": "understanding",
+    "output_image_dir": "result/SEED-X-17B/images",
+
+    "max_new_tokens": 512,
+    "do_sample": false,
+    "seed": 666,
+
+    "description": "SEED-X-17B: Tencent ARC multi-granularity unified model. Supports understanding/generation/editing, loaded via Hydra."
+}
