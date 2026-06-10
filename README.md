@@ -16,6 +16,10 @@
 - **[2026/06/01]** We release **Unison-Bench** and **Unison-Judge**.
 - **[2026/05/01]** **Unison** has been accepted to ICML 2026.
 
+<div align="center">
+<img src="images/overview.png" alt="Unison Overview" width="100%"/>
+</div>
+
 ---
 
 **Unison** is a multimodal benchmark for evaluating *unified* image understanding
