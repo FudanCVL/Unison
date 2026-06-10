@@ -3,7 +3,7 @@
 </div>
 
 
-<p align="center"><b><a href="jinyuliuu.github.io">Jinyu Liu</a><sup>1</sup>, <a href="https://scholar.google.com/citations?user=kLY6SUMAAAAJ&hl=en&oi=ao">Xincheng Shuai</a><sup>1</sup>, <a href="henghuiding.com">Henghui Ding</a><sup>1</sup>, <a href="https://scholar.google.com/citations?user=f3_FP8AAAAAJ&hl=en&oi=ao">Yu-Gang Jiang</a><sup>1</sup></b></p>
+<p align="center"><b><a href="https://jinyuliuu.github.io">Jinyu Liu</a><sup>1</sup>, <a href="https://scholar.google.com/citations?user=kLY6SUMAAAAJ&hl=en&oi=ao">Xincheng Shuai</a><sup>1</sup>, <a href="https://henghuiding.com">Henghui Ding</a><sup>1</sup>, <a href="https://scholar.google.com/citations?user=f3_FP8AAAAAJ&hl=en&oi=ao">Yu-Gang Jiang</a><sup>1</sup></b></p>
 <p align="center"><sup>1 </sup>Fudan University</p>
 
 
