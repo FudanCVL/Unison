@@ -16,9 +16,6 @@
 - **[2026/06/01]** We release **Unison-Bench** and **Unison-Judge**.
 - **[2026/05/01]** **Unison** has been accepted to ICML 2026.
 
-<div align="center">
-<img src="images/overview.png" alt="Unison Overview" width="100%"/>
-</div>
 
 ---
 
@@ -32,6 +29,12 @@ reproduce Unison results:
 
 > Benchmark data and model weights are **not** bundled — see [Data](#data) and
 > [Model weights](#model-weights) for how to obtain and wire them up.
+
+
+<div align="center">
+<img src="images/overview.png" alt="Unison Overview" width="100%"/>
+</div>
+
 
 ## Benchmark tasks
 
