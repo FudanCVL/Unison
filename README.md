@@ -10,7 +10,7 @@
 
 <div align="center">
 <a href='https://arxiv.org/abs/xxxxx'><img src='https://img.shields.io/badge/arXiv-2603.15616-b31b1b.svg'></a> &nbsp;&nbsp;&nbsp;&nbsp;
-<a href='https://henghuiding.com/Unison'><img src='https://img.shields.io/badge/Project-Page-Orange'></a> &nbsp;&nbsp;&nbsp;&nbsp;
+<a href='https://henghuiding.com/Unison'><img src='https://img.shields.io/badge/Project-Page-orange'></a> &nbsp;&nbsp;&nbsp;&nbsp;
 <a href="https://huggingface.co/datasets/FudanCVL/Unison"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Unison-Benchmark-green"></a> &nbsp;&nbsp;&nbsp;&nbsp;
 <a href="https://huggingface.co/FudanCVL/Unison-Judge"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Unison--Judge-Model-green"></a> &nbsp;&nbsp;&nbsp;&nbsp;
 <!--
