@@ -49,8 +49,8 @@ We introduce **Unison**, a comprehensive benchmark comprising 2,169 high-quality
 
 | Model | IC | UGG | GGU | ME | Overall |
 |---|---:|---:|---:|---:|---:|
-| Gemini 3 Pro | - | 86.9 | 76.9 | 43.9 | 71.4 | 69.8 |
-| GPT-5.2 | - | 84.7 | 77.7 | 52.7 | 70.2 | 71.3 |
+| Gemini 3 Pro| 86.9 | 76.9 | 43.9 | 71.4 | 69.8 |
+| GPT-5.2 | 84.7 | 77.7 | 52.7 | 70.2 | 71.3 |
 
 
 <!-- ### Open-Source Unified Multimodal Models
