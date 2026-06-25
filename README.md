@@ -8,15 +8,14 @@
 <div align="center">
 <a href='https://arxiv.org/abs/xxxxx'><img src='https://img.shields.io/badge/arXiv-2603.15616-b31b1b.svg'></a> &nbsp;&nbsp;&nbsp;&nbsp;
 <a href='https://henghuiding.com/Unison'><img src='https://img.shields.io/badge/Project-Page-orange'></a> &nbsp;&nbsp;&nbsp;&nbsp;
-<a href="https://huggingface.co/datasets/FudanCVL/Unison"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Unison--Bench-Benchmark-green"></a> &nbsp;&nbsp;&nbsp;&nbsp;
-<a href="https://huggingface.co/FudanCVL/Unison-Judge"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Unison--Judge-Model-green"></a> &nbsp;&nbsp;&nbsp;&nbsp;
+<a href="https://huggingface.co/datasets/FudanCVL/Unison"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Benchmark-Unison--Bench-green"></a> &nbsp;&nbsp;&nbsp;&nbsp;
+<a href="https://huggingface.co/FudanCVL/Unison-Judge"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Model-Unison--Judge-green"></a> &nbsp;&nbsp;&nbsp;&nbsp;
 </div>
 
 ## News
 - **[2026/06/25]** We release **Unison-Bench** and **Unison-Judge**.
 
-
-
+<p align="center"><img src="images/overview.png" alt="Unison Overview" width="100%"/></p>
 
 **Unison** is a multimodal benchmark for evaluating *unified* image understanding
 and generation models — models that both interpret and synthesize images within a
