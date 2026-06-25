@@ -8,7 +8,7 @@
 <div align="center">
 <a href='https://arxiv.org/abs/xxxxx'><img src='https://img.shields.io/badge/ICML 2026-Unison-b31b1b.svg?logo=arxiv&logoColor=B31B1B&labelColor=white'></a> &nbsp;&nbsp;&nbsp;&nbsp;
 <a href='https://fudancvl.github.io/Unison'><img src='https://img.shields.io/badge/Website-Unison-orange?logo=googlechrome&logoColor=4285F4&labelColor=white'></a> &nbsp;&nbsp;&nbsp;&nbsp;
-<a href="https://huggingface.co/datasets/FudanCVL/Unison"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Benchmark-Unison--Bench-green?labelColor=white"></a> &nbsp;&nbsp;&nbsp;&nbsp;
+<a href="https://huggingface.co/datasets/FudanCVL/Unison"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Benchmark-Unison-green?labelColor=white"></a> &nbsp;&nbsp;&nbsp;&nbsp;
 <a href="https://huggingface.co/FudanCVL/Unison-Judge"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Model-Unison--Judge-green?labelColor=white"></a> &nbsp;&nbsp;&nbsp;&nbsp;
 </div>
 
