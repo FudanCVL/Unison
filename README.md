@@ -2,7 +2,7 @@
 <h1><img src="images/Unison-logo.png" alt="Unison" height="25"/>: Benchmarking Unified Multimodal Models via Synergistic Understanding and Generation</h3>
 </div>
 
-<p align="center"><b><a href="https://jinyuliuu.github.io">Jinyu Liu</a>, <a href="https://scholar.google.com/citations?user=kLY6SUMAAAAJ&hl=en&oi=ao">Xincheng Shuai</a>, <a href="https://henghuiding.com">Henghui Ding</a>, <a href="https://scholar.google.com/citations?user=f3_FP8AAAAAJ&hl=en&oi=ao">Yu-Gang Jiang</a></b></p>
+<p align="center"><b><a href="https://scholar.google.com/citations?user=oPK92GMAAAAJ&hl=en&authuser=1">Jinyu Liu</a>, <a href="https://scholar.google.com/citations?user=kLY6SUMAAAAJ&hl=en&oi=ao">Xincheng Shuai</a>, <a href="https://henghuiding.com">Henghui Ding</a>, <a href="https://scholar.google.com/citations?user=f3_FP8AAAAAJ&hl=en&oi=ao">Yu-Gang Jiang</a></b></p>
 <p align="center">Fudan University</p>
 
 <div align="center">
