@@ -12,7 +12,7 @@
 <a href="https://huggingface.co/FudanCVL/Unison-Judge"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Evaluator-Unison--Judge-blue?labelColor=white"></a> &nbsp;&nbsp;&nbsp;&nbsp;
 </div>
 
-## Overview
+## 📖 Overview
 
 ***TL;DR: Unison evaluates Unified Multimodal Models (UMMs) by leveraging the synergy between understanding and generation across four dimensions. Unison-Judge, the automatic evaluation model, achieves an 88.7% alignment with human judgments.***
 
@@ -21,11 +21,11 @@
 
 We introduce **Unison**, a comprehensive benchmark comprising 2,169 high-quality unified task samples, designed to evaluate joint understanding and generation in unified multimodal models. Unison offers three key strengths: **1) Comprehensive Dimensions**: Unison encompasses internal consistency, understanding-guided generation, generation-guided understanding, and mutual enhancement to enable holistic evaluation. **2) Diagnostic Evaluation**: it provides both unified and decoupled tracks for understanding and generation, allowing fine-grained attribution of failure modes and quantitative analysis of the gains from unified modeling. **3) Human Alignment**: we also train Unison-Judge, an evaluation model well aligned with human judgments to achieve reliable assessment.
 
-## Updates
+## 🔥 Updates
 - **[2026/06/25]** We release **Unison-Bench** and **Unison-Judge**.
 
 
-## Evaluation Results
+## 📊 Evaluation Results
 
 ### Open-Source Unified Multimodal Models
 
@@ -90,7 +90,7 @@ We introduce **Unison**, a comprehensive benchmark comprising 2,169 high-quality
   </tbody>
 </table>
 
-## Installation
+## 🛠️ Installation
 
 There are two layers to install: a **base environment** (the orchestrator, judge, and data-handling code shared by both pipelines) and **one conda environment per model backend** (BAGEL, Janus, SEED-X, Show-o/Show-o2, TokenFlow, UniWorld, OmniGen2, ILLUME+, D-DiT). Each backend has heavy, mutually-incompatible dependencies, so each runs in its own env.
 
@@ -132,7 +132,7 @@ pip install -r requirements.txt
 
 Then install each backend from its upstream repository into a conda env named after that model's `conda_env`.
 
-## Data
+## 📦 Data
 
 The pipelines expect a benchmark data directory, released separately as **Unison-data** on [HuggingFace](https://huggingface.co/datasets/FudanCVL/Unison).
 
@@ -150,7 +150,7 @@ Unison/
 
 To keep it elsewhere, pass `--data-dir /path/to/Unison-data` or set the `DATA_DIR` env var in the launch scripts.
 
-## Model Weights
+## ⚖️ Model Weights
 
 ### Benchmark model weights
 
@@ -192,15 +192,11 @@ Unison/
 
 To keep it elsewhere, set `LOCAL_JUDGE_MODEL=/path/to/judge` or pass `--local-model-path /path/to/judge`. No local judge weights are needed when using the `api` backend.
 
-## Inference
+## 🚀 Inference and Evaluation
 
-See [`Inference_Pipeline/README.md`](Inference_Pipeline/README.md) for the full guide, including environment setup, `run.sh` variables, configuration fields, and how to add a new model.
+See [`Inference_Pipeline/README.md`](Inference_Pipeline/README.md) and [`Evaluation_Pipeline/README.md`](Evaluation_Pipeline/README.md) for the detailed guides.
 
-## Evaluation
-
-See [`Evaluation_Pipeline/README.md`](Evaluation_Pipeline/README.md) for the full guide, including judge backends, `run_evaluate_unison.sh` variables, direct invocation, and scoring metrics.
-
-## Citation
+## 📝 Citation
 
 If you find this work useful, please cite:
 
@@ -213,6 +209,6 @@ If you find this work useful, please cite:
 }
 ```
 
-## License
+## 📄 License
 
 Released under the [MIT License](LICENSE).
