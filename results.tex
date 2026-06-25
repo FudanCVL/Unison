@@ -1,0 +1,55 @@
+\begin{table*}[t]
+    \centering
+    \caption{Comparative results of open-source and closed-source models on the proposed Unison benchmark. Und., Gen., and Uni. denote understanding, generation, and unified scores, respectively. For open-source models, the \textbf{bold} and \underline{underlined} values indicate the best and second-best performance within their respective categories. All scores are given in percentage units (\%), except for model parameters.}
+    \vspace{-2mm}
+    \small
+    \setlength\tabcolsep{7pt}
+    \renewcommand\arraystretch{1.0}
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{l|c|ccc|ccc|ccc|ccc|ccc|c}
+    \specialrule{.1em}{.05em}{.05em}
+    % \rowcolor{gray!30}
+    \multirow{2}{*}{\textbf{Model}}& 
+    \multirow{2}{*}{\textbf{Params}} &
+    \multicolumn{3}{c|}{\textbf{Internal Consistency}} &
+    \multicolumn{3}{c|}{\textbf{Und.-Guided Gen.}} &
+    \multicolumn{3}{c|}{\textbf{Gen-Guided Und.}} &
+    \multicolumn{3}{c|}{\textbf{Mutual Enhancement}} &
+    \multirow{2}{*}{\textbf{Overall}}
+     \\
+    % \rowcolor{gray!30}
+     & & Und. & Gen. & Uni. & Und. & Gen. & Uni. & Und. & Gen. & Uni. & Und. & Gen. & Uni. &  \\
+    \hline
+    
+    \rowcolor{gray!30}
+    \multicolumn{15}{l}{\emph{Open-Source Unified Multimodal Models}} \\
+    
+    \hline
+    
+    Show-o & 1.3B &88.3 &64.7 &58.5 &8.90 &- &- &12.0 &- &- &- &- &- & - \\
+    Janus-Pro & 1.5B &94.4 &47.1 &45.0 &0.3 &- &- &19.2 &- &- &- &- &- & - \\
+    Show-o2 & 1.5B &\underline{96.0} &67.9 &65.8 &26.7 &- &- &9.4 &- &- &- &- &- & - \\
+    D-DiT & 2B &86.5 &65.0 &58.1 &0.2 &- &- &6.8 &- &- &- &- &- & - \\
+    
+    ILLUME+ & 3B &43.4 &19.9 &10.5 &10.3 &7.7 &9.0 &11.3 &30.1 &15.1 &1.0 &5.5 &3.2 & 9.4 \\
+    
+    Janus-Pro & 7B &95.7 &71.7 &69.8 &3.2 &- &- &15.1 &- &- &- &- &- & - \\
+    Show-o2 & 7B &\textbf{97.2} &73.8 &72.5 &9.9 &- &- &9.2 &- &- &- &- &- & - \\
+    ILLUME+ & 7B &80.2 &20.4 &16.7 &12.4 &10.4 &11.4 &11.3 &27.7 &13.9 &2.7 &6.8 &4.8 &11.7  \\
+    
+    OmniGen2 & 7B &92.3 &\underline{79.0} &\underline{74.5} &\underline{61.3} &\underline{42.6} &\underline{52.0} &{19.7} &\textbf{41.9} &\underline{30.9} &\underline{45.0} &\underline{50.3} &\textbf{47.7} & \underline{51.3} \\
+    
+    TokenFlow & 14B &93.0 &47.1 &44.5 &20.1 &- &- &17.0 &- &- &- &- &- & - \\
+    
+    BAGEL & 14B &\underline{96.0} &\textbf{82.5} &\textbf{80.3} &57.6 &\textbf{78.1} &\textbf{67.9} &\textbf{28.2} &\underline{41.6} &\textbf{32.0} &{7.2} &\textbf{57.7} & \underline{32.5} & \textbf{53.2} \\
+    SEED-X & 17B &82.8 &38.9 &34.2 & 18.6 &13.7 &16.1 &13.5 &27.4 &20.8 &0.2 &16.8 &8.5 & 19.9\\
+    UniWorld & 19B &92.6 &68.5 &65.1 &\textbf{63.4} &26.4 &{44.9} &\underline{22.8} &32.0 &26.9 &\textbf{46.4} &{16.2} & 31.3 & {42.1} \\
+    \hline
+    \rowcolor{gray!30}
+    \multicolumn{15}{l}{\emph{Closed-Source Models}} \\
+    \hline
+    Gemini 3 Pro & - &98.3 &88.1 &86.9 &71.0 &82.8 &76.9 &42.2 &46.5 &43.9 &65.3 &77.4 &71.4 &69.8 \\
+    GPT-5.2 & - &98.6 &86.3 &84.7 &69.7 &85.7 &77.7 &44.8 &58.2 &52.7 &69.1 &71.2 &70.2 &71.3 \\
+    
+    
+    

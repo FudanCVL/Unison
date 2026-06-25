@@ -21,10 +21,42 @@
 
 We introduce **Unison**, a comprehensive benchmark comprising 2,169 high-quality unified task samples, designed to evaluate joint understanding and generation in unified multimodal models. Unison offers three key strengths: **1) Comprehensive Dimensions**: Unison encompasses internal consistency, understanding-guided generation, generation-guided understanding, and mutual enhancement to enable holistic evaluation. **2) Diagnostic Evaluation**: it provides both unified and decoupled tracks for understanding and generation, allowing fine-grained attribution of failure modes and quantitative analysis of the gains from unified modeling. **3) Human Alignment**: we also train Unison-Judge, an evaluation model well aligned with human judgments to achieve reliable assessment.
 
-## News
+## Updates
 - **[2026/06/25]** We release **Unison-Bench** and **Unison-Judge**.
 
 
+## Evaluation Results
+
+The benchmark results reported in `results.tex` are reproduced below in Markdown.
+Und., Gen., and Uni. denote understanding, generation, and unified scores, respectively.
+Bold and <u>underlined</u> values mirror the original highlighting for open-source models.
+
+### Open-Source Unified Multimodal Models
+
+| Model | Params | IC Und. | IC Gen. | IC Uni. | UGG Und. | UGG Gen. | UGG Uni. | GGU Und. | GGU Gen. | GGU Uni. | ME Und. | ME Gen. | ME Uni. | Overall |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| Show-o | 1.3B | 88.3 | 64.7 | 58.5 | 8.90 | - | - | 12.0 | - | - | - | - | - | - |
+| Janus-Pro | 1.5B | 94.4 | 47.1 | 45.0 | 0.3 | - | - | 19.2 | - | - | - | - | - | - |
+| Show-o2 | 1.5B | <u>96.0</u> | 67.9 | 65.8 | 26.7 | - | - | 9.4 | - | - | - | - | - | - |
+| D-DiT | 2B | 86.5 | 65.0 | 58.1 | 0.2 | - | - | 6.8 | - | - | - | - | - | - |
+| ILLUME+ | 3B | 43.4 | 19.9 | 10.5 | 10.3 | 7.7 | 9.0 | 11.3 | 30.1 | 15.1 | 1.0 | 5.5 | 3.2 | 9.4 |
+| Janus-Pro | 7B | 95.7 | 71.7 | 69.8 | 3.2 | - | - | 15.1 | - | - | - | - | - | - |
+| Show-o2 | 7B | **97.2** | 73.8 | 72.5 | 9.9 | - | - | 9.2 | - | - | - | - | - | - |
+| ILLUME+ | 7B | 80.2 | 20.4 | 16.7 | 12.4 | 10.4 | 11.4 | 11.3 | 27.7 | 13.9 | 2.7 | 6.8 | 4.8 | 11.7 |
+| OmniGen2 | 7B | 92.3 | <u>79.0</u> | <u>74.5</u> | <u>61.3</u> | <u>42.6</u> | <u>52.0</u> | 19.7 | **41.9** | <u>30.9</u> | <u>45.0</u> | <u>50.3</u> | **47.7** | <u>51.3</u> |
+| TokenFlow | 14B | 93.0 | 47.1 | 44.5 | 20.1 | - | - | 17.0 | - | - | - | - | - | - |
+| BAGEL | 14B | <u>96.0</u> | **82.5** | **80.3** | 57.6 | **78.1** | **67.9** | **28.2** | <u>41.6</u> | **32.0** | 7.2 | **57.7** | <u>32.5</u> | **53.2** |
+| SEED-X | 17B | 82.8 | 38.9 | 34.2 | 18.6 | 13.7 | 16.1 | 13.5 | 27.4 | 20.8 | 0.2 | 16.8 | 8.5 | 19.9 |
+| UniWorld | 19B | 92.6 | 68.5 | 65.1 | **63.4** | 26.4 | 44.9 | <u>22.8</u> | 32.0 | 26.9 | **46.4** | 16.2 | 31.3 | 42.1 |
+
+### Closed-Source Models
+
+| Model | Params | IC Und. | IC Gen. | IC Uni. | UGG Und. | UGG Gen. | UGG Uni. | GGU Und. | GGU Gen. | GGU Uni. | ME Und. | ME Gen. | ME Uni. | Overall |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| Gemini 3 Pro | - | 98.3 | 88.1 | 86.9 | 71.0 | 82.8 | 76.9 | 42.2 | 46.5 | 43.9 | 65.3 | 77.4 | 71.4 | 69.8 |
+| GPT-5.2 | - | 98.6 | 86.3 | 84.7 | 69.7 | 85.7 | 77.7 | 44.8 | 58.2 | 52.7 | 69.1 | 71.2 | 70.2 | 71.3 |
+
+### Inference and Evaluation Pipelines
 
 - **`Inference_Pipeline/`** — runs benchmark inference across many unified models on multiple GPUs.
 - **`Evaluation_Pipeline/`** — scores model outputs with a VLM judge: a local trained
@@ -39,7 +71,7 @@ We introduce **Unison**, a comprehensive benchmark comprising 2,169 high-quality
 > Model backbone weights are not bundled either. See [Data](#data) and
 > [Model weights](#model-weights) for how to obtain and wire everything up.
 
-## Benchmark tasks
+<!-- ## Benchmark tasks
 
 Unison defines four tasks that each probe the interplay between understanding and generation:
 
@@ -48,7 +80,7 @@ Unison defines four tasks that each probe the interplay between understanding an
 | **IC**  | Internal Consistency        | Generate an image from a prompt, then answer VQA questions about it. |
 | **UGG** | Understanding Guided Generation | Use image understanding (e.g. bounding-box extraction) to guide editing. |
 | **GGU** | Generation Guided Understanding | Generate an image, then answer spatial-reasoning questions about it. |
-| **ME**  | Mutual Enhancement          | Multi-turn dialogue where understanding and generation reinforce each other. |
+| **ME**  | Mutual Enhancement          | Multi-turn dialogue where understanding and generation reinforce each other. | -->
 
 ## Repository layout
 
