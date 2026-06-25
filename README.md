@@ -12,15 +12,15 @@
 <a href="https://huggingface.co/FudanCVL/Unison-Judge"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Model-Unison--Judge-green"></a> &nbsp;&nbsp;&nbsp;&nbsp;
 </div>
 
-## News
-- **[2026/06/25]** We release **Unison-Bench** and **Unison-Judge**.
+***TL;DR: Unison evaluates Unified Multimodal Models (UMMs) by leveraging the synergy between understanding and generation across four dimensions. Unison-Judge, the automatic evaluation model, achieves an 88.7% alignment with human judgments.***
+
 
 <p align="center"><img src="images/overview.png" alt="Unison Overview" width="100%"/></p>
 
-**Unison** is a multimodal benchmark for evaluating *unified* image understanding
-and generation models — models that both interpret and synthesize images within a
-single architecture. This repository contains the two pipelines needed to
-reproduce Unison results:
+We introduce **Unison**, a comprehensive benchmark comprising 2,169 high-quality unified task samples, designed to evaluate joint understanding and generation in unified multimodal models. Unison offers three key strengths: **1) Comprehensive Dimensions**: Unison encompasses internal consistency, understanding-guided generation, generation-guided understanding, and mutual enhancement to enable holistic evaluation. **2) Diagnostic Evaluation**: it provides both unified and decoupled tracks for understanding and generation, allowing fine-grained attribution of failure modes and quantitative analysis of the gains from unified modeling. **3) Human Alignment**: we also train Unison-Judge, an evaluation model well aligned with human judgments to achieve reliable assessment.
+
+## News
+- **[2026/06/25]** We release **Unison-Bench** and **Unison-Judge**.
 
 - **`Inference_Pipeline/`** — runs benchmark inference across many unified models on multiple GPUs.
 - **`Evaluation_Pipeline/`** — scores model outputs with a VLM judge: a local trained
