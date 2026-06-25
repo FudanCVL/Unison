@@ -388,6 +388,19 @@ python aggregate_results.py   # -> evaluation_summary.json
 | `inference_mode` | Default mode: `understanding`, `generation`, or `editing`. |
 | `seed`       | Random seed (default 666). |
 
+## Citation
+
+If you find this work useful, please cite:
+
+```bibtex
+@inproceedings{liu2026unison,
+  title     = {Unison: Benchmarking Unified Multimodal Models via Synergistic Understanding and Generation},
+  author    = {Liu, Jinyu and Shuai, Xincheng and Ding, Henghui and Jiang, Yu-Gang},
+  booktitle = {International Conference on Machine Learning (ICML)},
+  year      = {2026}
+}
+```
+
 ## License
 
 Released under the [MIT License](LICENSE).
