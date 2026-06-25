@@ -6,7 +6,7 @@
 <p align="center"><sup>1 </sup>Fudan University</p>
 
 <div align="center">
-<a href='https://arxiv.org/abs/xxxxx'><img src='https://img.shields.io/badge/arXiv-2603.15616-b31b1b.svg'></a> &nbsp;&nbsp;&nbsp;&nbsp;
+<a href='https://arxiv.org/abs/xxxxx'><img src='https://img.shields.io/badge/ICML 2026-Unison-b31b1b.svg'></a> &nbsp;&nbsp;&nbsp;&nbsp;
 <a href='https://henghuiding.com/Unison'><img src='https://img.shields.io/badge/Project-Page-orange'></a> &nbsp;&nbsp;&nbsp;&nbsp;
 <a href="https://huggingface.co/datasets/FudanCVL/Unison"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Benchmark-Unison--Bench-green"></a> &nbsp;&nbsp;&nbsp;&nbsp;
 <a href="https://huggingface.co/FudanCVL/Unison-Judge"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Model-Unison--Judge-green"></a> &nbsp;&nbsp;&nbsp;&nbsp;
@@ -23,6 +23,8 @@ We introduce **Unison**, a comprehensive benchmark comprising 2,169 high-quality
 
 ## News
 - **[2026/06/25]** We release **Unison-Bench** and **Unison-Judge**.
+
+
 
 - **`Inference_Pipeline/`** — runs benchmark inference across many unified models on multiple GPUs.
 - **`Evaluation_Pipeline/`** — scores model outputs with a VLM judge: a local trained
