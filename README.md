@@ -29,28 +29,66 @@ We introduce **Unison**, a comprehensive benchmark comprising 2,169 high-quality
 
 ### Open-Source Unified Multimodal Models
 
-| Model | Params | IC Uni. | UGG Uni. | GGU Uni. | ME Uni. | Overall |
-|---|---:|---:|---:|---:|---:|---:|
-| [Show-o](https://github.com/showlab/Show-o) | 1.3B | 58.5 | - | - | - | - |
-| [Janus-Pro](https://github.com/deepseek-ai/Janus) | 1.5B | 45.0 | - | - | - | - |
-| [Show-o2](https://github.com/showlab/Show-o/tree/main/show-o2) | 1.5B | 65.8 | - | - | - | - |
-| [D-DiT](https://github.com/zijieli-Jlee/Dual-Diffusion) | 2B | 58.1 | - | - | - | - |
-| [ILLUME+](https://github.com/illume-unified-mllm/ILLUME_plus) | 3B | 10.5 | 9.0 | 15.1 | 3.2 | 9.4 |
-| [Janus-Pro](https://github.com/deepseek-ai/Janus) | 7B | 69.8 | - | - | - | - |
-| [Show-o2](https://github.com/showlab/Show-o/tree/main/show-o2) | 7B | 72.5 | - | - | - | - |
-| [ILLUME+](https://github.com/illume-unified-mllm/ILLUME_plus) | 7B | 16.7 | 11.4 | 13.9 | 4.8 | 11.7 |
-| [OmniGen2](https://github.com/VectorSpaceLab/OmniGen2) | 7B | <u>74.5</u> | <u>52.0</u> | <u>30.9</u> | **47.7** | <u>51.3</u> |
-| [TokenFlow](https://github.com/ByteVisionLab/TokenFlow) | 14B | 44.5 | - | - | - | - |
-| [BAGEL](https://github.com/ByteDance-Seed/Bagel) | 14B | **80.3** | **67.9** | **32.0** | <u>32.5</u> | **53.2** |
-| [SEED-X](https://github.com/AILab-CVC/SEED-X) | 17B | 34.2 | 16.1 | 20.8 | 8.5 | 19.9 |
-| [UniWorld](https://github.com/PKU-YuanGroup/UniWorld) | 19B | 65.1 | 44.9 | 26.9 | 31.3 | 42.1 |
+<table>
+  <thead>
+    <tr>
+      <th rowspan="2">Model</th>
+      <th rowspan="2">Params</th>
+      <th colspan="3">Internal Consistency</th>
+      <th colspan="3">Und.-Guided Gen.</th>
+      <th colspan="3">Gen-Guided Und.</th>
+      <th colspan="3">Mutual Enhancement</th>
+      <th rowspan="2">Overall</th>
+    </tr>
+    <tr>
+      <th>Und.</th><th>Gen.</th><th>Uni.</th>
+      <th>Und.</th><th>Gen.</th><th>Uni.</th>
+      <th>Und.</th><th>Gen.</th><th>Uni.</th>
+      <th>Und.</th><th>Gen.</th><th>Uni.</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><a href="https://github.com/showlab/Show-o">Show-o</a></td><td align="right">1.3B</td><td align="right">88.3</td><td align="right">64.7</td><td align="right">58.5</td><td align="right">8.90</td><td align="right">-</td><td align="right">-</td><td align="right">12.0</td><td align="right">-</td><td align="right">-</td><td align="right">-</td><td align="right">-</td><td align="right">-</td><td align="right">-</td></tr>
+    <tr><td><a href="https://github.com/deepseek-ai/Janus">Janus-Pro</a></td><td align="right">1.5B</td><td align="right">94.4</td><td align="right">47.1</td><td align="right">45.0</td><td align="right">0.3</td><td align="right">-</td><td align="right">-</td><td align="right">19.2</td><td align="right">-</td><td align="right">-</td><td align="right">-</td><td align="right">-</td><td align="right">-</td><td align="right">-</td></tr>
+    <tr><td><a href="https://github.com/showlab/Show-o/tree/main/show-o2">Show-o2</a></td><td align="right">1.5B</td><td align="right"><u>96.0</u></td><td align="right">67.9</td><td align="right">65.8</td><td align="right">26.7</td><td align="right">-</td><td align="right">-</td><td align="right">9.4</td><td align="right">-</td><td align="right">-</td><td align="right">-</td><td align="right">-</td><td align="right">-</td><td align="right">-</td></tr>
+    <tr><td><a href="https://github.com/zijieli-Jlee/Dual-Diffusion">D-DiT</a></td><td align="right">2B</td><td align="right">86.5</td><td align="right">65.0</td><td align="right">58.1</td><td align="right">0.2</td><td align="right">-</td><td align="right">-</td><td align="right">6.8</td><td align="right">-</td><td align="right">-</td><td align="right">-</td><td align="right">-</td><td align="right">-</td><td align="right">-</td></tr>
+    <tr><td><a href="https://github.com/illume-unified-mllm/ILLUME_plus">ILLUME+</a></td><td align="right">3B</td><td align="right">43.4</td><td align="right">19.9</td><td align="right">10.5</td><td align="right">10.3</td><td align="right">7.7</td><td align="right">9.0</td><td align="right">11.3</td><td align="right">30.1</td><td align="right">15.1</td><td align="right">1.0</td><td align="right">5.5</td><td align="right">3.2</td><td align="right">9.4</td></tr>
+    <tr><td><a href="https://github.com/deepseek-ai/Janus">Janus-Pro</a></td><td align="right">7B</td><td align="right">95.7</td><td align="right">71.7</td><td align="right">69.8</td><td align="right">3.2</td><td align="right">-</td><td align="right">-</td><td align="right">15.1</td><td align="right">-</td><td align="right">-</td><td align="right">-</td><td align="right">-</td><td align="right">-</td><td align="right">-</td></tr>
+    <tr><td><a href="https://github.com/showlab/Show-o/tree/main/show-o2">Show-o2</a></td><td align="right">7B</td><td align="right"><strong>97.2</strong></td><td align="right">73.8</td><td align="right">72.5</td><td align="right">9.9</td><td align="right">-</td><td align="right">-</td><td align="right">9.2</td><td align="right">-</td><td align="right">-</td><td align="right">-</td><td align="right">-</td><td align="right">-</td><td align="right">-</td></tr>
+    <tr><td><a href="https://github.com/illume-unified-mllm/ILLUME_plus">ILLUME+</a></td><td align="right">7B</td><td align="right">80.2</td><td align="right">20.4</td><td align="right">16.7</td><td align="right">12.4</td><td align="right">10.4</td><td align="right">11.4</td><td align="right">11.3</td><td align="right">27.7</td><td align="right">13.9</td><td align="right">2.7</td><td align="right">6.8</td><td align="right">4.8</td><td align="right">11.7</td></tr>
+    <tr><td><a href="https://github.com/VectorSpaceLab/OmniGen2">OmniGen2</a></td><td align="right">7B</td><td align="right">92.3</td><td align="right"><u>79.0</u></td><td align="right"><u>74.5</u></td><td align="right"><u>61.3</u></td><td align="right"><u>42.6</u></td><td align="right"><u>52.0</u></td><td align="right">19.7</td><td align="right"><strong>41.9</strong></td><td align="right"><u>30.9</u></td><td align="right"><u>45.0</u></td><td align="right"><u>50.3</u></td><td align="right"><strong>47.7</strong></td><td align="right"><u>51.3</u></td></tr>
+    <tr><td><a href="https://github.com/ByteVisionLab/TokenFlow">TokenFlow</a></td><td align="right">14B</td><td align="right">93.0</td><td align="right">47.1</td><td align="right">44.5</td><td align="right">20.1</td><td align="right">-</td><td align="right">-</td><td align="right">17.0</td><td align="right">-</td><td align="right">-</td><td align="right">-</td><td align="right">-</td><td align="right">-</td><td align="right">-</td></tr>
+    <tr><td><a href="https://github.com/ByteDance-Seed/Bagel">BAGEL</a></td><td align="right">14B</td><td align="right"><u>96.0</u></td><td align="right"><strong>82.5</strong></td><td align="right"><strong>80.3</strong></td><td align="right">57.6</td><td align="right"><strong>78.1</strong></td><td align="right"><strong>67.9</strong></td><td align="right"><strong>28.2</strong></td><td align="right"><u>41.6</u></td><td align="right"><strong>32.0</strong></td><td align="right">7.2</td><td align="right"><strong>57.7</strong></td><td align="right"><u>32.5</u></td><td align="right"><strong>53.2</strong></td></tr>
+    <tr><td><a href="https://github.com/AILab-CVC/SEED-X">SEED-X</a></td><td align="right">17B</td><td align="right">82.8</td><td align="right">38.9</td><td align="right">34.2</td><td align="right">18.6</td><td align="right">13.7</td><td align="right">16.1</td><td align="right">13.5</td><td align="right">27.4</td><td align="right">20.8</td><td align="right">0.2</td><td align="right">16.8</td><td align="right">8.5</td><td align="right">19.9</td></tr>
+    <tr><td><a href="https://github.com/PKU-YuanGroup/UniWorld">UniWorld</a></td><td align="right">19B</td><td align="right">92.6</td><td align="right">68.5</td><td align="right">65.1</td><td align="right"><strong>63.4</strong></td><td align="right">26.4</td><td align="right">44.9</td><td align="right"><u>22.8</u></td><td align="right">32.0</td><td align="right">26.9</td><td align="right"><strong>46.4</strong></td><td align="right">16.2</td><td align="right">31.3</td><td align="right">42.1</td></tr>
+  </tbody>
+</table>
 
 ### Closed-Source Models
 
-| Model | IC Uni. | UGG Uni. | GGU Uni. | ME Uni. | Overall |
-|---|---:|---:|---:|---:|---:|
-| Gemini 3 Pro | 86.9 | 76.9 | 43.9 | 71.4 | 69.8 |
-| GPT-5.2 | 84.7 | 77.7 | 52.7 | 70.2 | 71.3 |
+<table>
+  <thead>
+    <tr>
+      <th rowspan="2">Model</th>
+      <th rowspan="2">Params</th>
+      <th colspan="3">Internal Consistency</th>
+      <th colspan="3">Und.-Guided Gen.</th>
+      <th colspan="3">Gen-Guided Und.</th>
+      <th colspan="3">Mutual Enhancement</th>
+      <th rowspan="2">Overall</th>
+    </tr>
+    <tr>
+      <th>Und.</th><th>Gen.</th><th>Uni.</th>
+      <th>Und.</th><th>Gen.</th><th>Uni.</th>
+      <th>Und.</th><th>Gen.</th><th>Uni.</th>
+      <th>Und.</th><th>Gen.</th><th>Uni.</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Gemini 3 Pro</td><td align="right">-</td><td align="right">98.3</td><td align="right">88.1</td><td align="right">86.9</td><td align="right">71.0</td><td align="right">82.8</td><td align="right">76.9</td><td align="right">42.2</td><td align="right">46.5</td><td align="right">43.9</td><td align="right">65.3</td><td align="right">77.4</td><td align="right">71.4</td><td align="right">69.8</td></tr>
+    <tr><td>GPT-5.2</td><td align="right">-</td><td align="right">98.6</td><td align="right">86.3</td><td align="right">84.7</td><td align="right">69.7</td><td align="right">85.7</td><td align="right">77.7</td><td align="right">44.8</td><td align="right">58.2</td><td align="right">52.7</td><td align="right">69.1</td><td align="right">71.2</td><td align="right">70.2</td><td align="right">71.3</td></tr>
+  </tbody>
+</table>
 
 ### Inference and Evaluation Pipelines
 
