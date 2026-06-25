@@ -70,31 +70,52 @@ def parse_bbox(
     text: str,
     img_w: Optional[int] = None,
     img_h: Optional[int] = None,
+    pixel_space: bool = False,
 ) -> Optional[list]:
     """
     Parse a bounding box from model text.
-    Returns [x_min, y_min, x_max, y_max] clipped to image boundaries, or None.
-    If img_w/img_h are provided, coordinates are clipped to [0, img_w] x [0, img_h].
-    Otherwise coordinates are clipped to >= 0 at minimum.
+    Returns [x_min, y_min, x_max, y_max] in 0-1000 relative coordinates, or None.
+
+    pixel_space=True  — model output is absolute pixel coordinates; img_w/img_h
+                        required to convert to 0-1000 space.
+    pixel_space=False — relative coordinates: 0-1 range is auto-scaled to 0-1000;
+                        values already in 0-1000 range are used as-is.
     """
     if not text or str(text).lower() in ("nan", "none", ""):
         return None
     text = str(text)
-    # Find 4 consecutive numbers (int or float)
-    nums = re.findall(r"[-+]?\d*\.?\d+", text)
+    # Prefer explicit bbox_2d JSON (e.g. OmniGen2 / UniWorld output)
+    # to avoid extracting stray digits from field names like "bbox_2d".
+    m = re.search(r'"bbox_2d"\s*:\s*\[([^\]]+)\]', text)
+    if m:
+        nums = re.findall(r"[-+]?\d*\.?\d+", m.group(1))
+    else:
+        nums = re.findall(r"[-+]?\d*\.?\d+", text)
     if len(nums) >= 4:
         try:
             coords = [float(n) for n in nums[:4]]
             x_min, y_min, x_max, y_max = coords
-            # Clip to image boundaries
+
+            if pixel_space:
+                # Convert absolute pixel coords to 0-1000 relative space.
+                if img_w and img_h:
+                    x_min = x_min / img_w * 1000
+                    y_min = y_min / img_h * 1000
+                    x_max = x_max / img_w * 1000
+                    y_max = y_max / img_h * 1000
+                else:
+                    return None  # can't convert without image size
+            else:
+                # Auto-scale 0-1 normalized coords to 0-1000.
+                if max(x_max, y_max) <= 1.0:
+                    x_min, y_min, x_max, y_max = (
+                        x_min * 1000, y_min * 1000, x_max * 1000, y_max * 1000
+                    )
+
             x_min = max(0.0, x_min)
             y_min = max(0.0, y_min)
-            if img_w is not None:
-                x_min = min(x_min, float(img_w))
-                x_max = min(x_max, float(img_w))
-            if img_h is not None:
-                y_min = min(y_min, float(img_h))
-                y_max = min(y_max, float(img_h))
+            x_max = min(x_max, 1000.0)
+            y_max = min(y_max, 1000.0)
             if x_max > x_min and y_max > y_min:
                 return [x_min, y_min, x_max, y_max]
         except ValueError:

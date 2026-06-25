@@ -51,24 +51,42 @@ def _polygon_bbox(points: list) -> list:
     return [min(xs), min(ys), max(xs), max(ys)]
 
 
-def compute_region_iou(pred_text: str, gt_bbox_str: str, gt_mask_str: Optional[str] = None) -> float:
+def compute_region_iou(
+    pred_text: str,
+    gt_bbox_str: str,
+    gt_mask_str: Optional[str] = None,
+    img_w: Optional[int] = None,
+    img_h: Optional[int] = None,
+    pixel_space: bool = False,
+) -> float:
     """
     Compute IoU between model prediction and ground truth region.
-    Tries mask IoU first (if gt_mask_str available), falls back to bbox IoU.
+    gt_bbox_str must be in 0-1000 relative coordinates.
+    gt_mask_str contains pixel-coordinate polygon; img_w/img_h are required to
+    convert it to 0-1000 relative before comparison.
+    Falls back to bbox IoU when mask conversion is not possible.
     Non-parseable prediction → IoU = 0.
+
+    pixel_space — pass True for models that output absolute pixel coordinates
+                  (e.g. OmniGen2, UniWorld); img_w/img_h are used to convert.
     """
     from .normalize import parse_bbox
 
-    pred_bbox = parse_bbox(pred_text)
+    pred_bbox = parse_bbox(pred_text, img_w=img_w, img_h=img_h, pixel_space=pixel_space)
     if pred_bbox is None:
         return 0.0
 
-    # Try mask IoU: convert mask polygon to bbox and compute bbox IoU
-    # (Full pixel-level mask IoU requires image dimensions; bbox approximation is used here)
-    if gt_mask_str and str(gt_mask_str).lower() not in ("nan", "none", ""):
+    # Try mask IoU: convert pixel-space mask polygon to 0-1000 relative bbox
+    if gt_mask_str and str(gt_mask_str).lower() not in ("nan", "none", "") and img_w and img_h:
         gt_poly = _parse_polygon(gt_mask_str)
         if gt_poly:
-            gt_mask_bbox = _polygon_bbox(gt_poly)
+            gt_mask_bbox_px = _polygon_bbox(gt_poly)
+            gt_mask_bbox = [
+                gt_mask_bbox_px[0] / img_w * 1000,
+                gt_mask_bbox_px[1] / img_h * 1000,
+                gt_mask_bbox_px[2] / img_w * 1000,
+                gt_mask_bbox_px[3] / img_h * 1000,
+            ]
             return bbox_iou(pred_bbox, gt_mask_bbox)
 
     # Fall back to bbox IoU

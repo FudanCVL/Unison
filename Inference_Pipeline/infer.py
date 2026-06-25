@@ -554,6 +554,7 @@ _DISPATCH_MAP: Dict[str, tuple] = {
     "janus":     ("model_inference.janus_inference",    "janus_inference_function"),
     "seed_x":    ("model_inference.seed_x_inference",   "seed_x_inference_function"),
     "tokenflow": ("model_inference.tokenflow_inference","tokenflow_inference_function"),
+    "showo":     ("model_inference.showo_inference",    "showo_inference_function"),
     "showo2":    ("model_inference.showo2_inference",   "showo2_inference_function"),
     "uniworld":  ("model_inference.uniworld_inference", "uniworld_inference_function"),
     "omnigen2":  ("model_inference.omnigen2_inference", "omnigen2_inference_function"),

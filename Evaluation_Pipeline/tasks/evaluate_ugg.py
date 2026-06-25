@@ -29,19 +29,23 @@ def evaluate_ugg(
     inference_base_dir: str,
     max_workers: int = 8,
     output_csv: str = None,
+    pixel_space_bbox: bool = False,
 ) -> dict:
     """
     Evaluate UGG task.
 
     CSV operation_index mapping:
       0 = understanding  → predicted bbox (text)
-      1 = editing        → direct edit image path
-      2 = unify          → guided edit image path
+      1 = editing        → edit image produced from the model's own predicted bbox
 
     Scores per sample:
       understanding_item = IoU(pred_bbox, GT)
-      generation_item    = judge.rate_edit(orig, direct_edit, instruction)
-      unified_item       = (IoU + judge.rate_edit(orig, guided_edit, ...)) / 2
+      generation_item    = judge.rate_edit(orig, edit, instruction)
+      unified_item       = (understanding_item + generation_item) / 2
+
+    There is no separate "unify" inference: the unified score is just the mean of
+    the understanding and generation scores. The predicted bbox is NOT replaced by
+    the GT bbox — if the model fails to output one, that counts against the model.
     """
     if not os.path.exists(csv_path):
         print(f"[UGG] CSV not found: {csv_path}")
@@ -59,12 +63,10 @@ def evaluate_ugg(
             print(f"[UGG] Warning: could not load GT data: {e}")
 
     # --- Parse rows ---
-    # bbox_preds[idx] = raw model response text
-    # direct_edits[idx] = absolute image path or ""
-    # guided_edits[idx] = absolute image path or ""
+    # bbox_preds[idx] = raw model response text (predicted bbox)
+    # edits[idx]      = absolute edit image path or ""
     bbox_preds: dict = {}
-    direct_edits: dict = {}
-    guided_edits: dict = {}
+    edits: dict = {}
     input_data_cache: dict = {}  # idx -> parsed input_data dict
 
     import json
@@ -84,15 +86,10 @@ def evaluate_ugg(
         if op_idx == 0:  # understanding → bbox prediction
             bbox_preds[idx] = resp
 
-        elif op_idx == 1:  # editing → direct edit
+        elif op_idx == 1:  # editing → edit produced from predicted bbox
             img = parse_image_path(resp)
             if img:
-                direct_edits[idx] = resolve_path(img, inference_base_dir)
-
-        elif op_idx == 2:  # unify → guided edit
-            img = parse_image_path(resp)
-            if img:
-                guided_edits[idx] = resolve_path(img, inference_base_dir)
+                edits[idx] = resolve_path(img, inference_base_dir)
 
     all_indices = set(input_data_cache)
     if not all_indices:
@@ -100,14 +97,10 @@ def evaluate_ugg(
         return null_task_result("UGG")
 
     # --- Collect judge calls ---
-    # We need to call rate_edit for:
-    #   (a) direct edit: (orig, direct_edit, instruction, operation) for generation_score
-    #   (b) guided edit: (orig, guided_edit, instruction, operation) for unified_score
-    # Collect all into a flat list and submit concurrently
-
+    # One rate_edit call per sample with a valid edit image:
+    #   (orig, edit, instruction, operation, bbox) → generation score
     # idx -> (orig, edited, instruction, operation, bbox_str)
-    judge_tasks_direct: dict = {}
-    judge_tasks_guided: dict = {}
+    judge_tasks: dict = {}
 
     for idx in sorted(all_indices):
         idata = input_data_cache.get(idx, {})
@@ -123,46 +116,36 @@ def evaluate_ugg(
         if not operation or operation.lower() in ("nan", "none"):
             operation = None
 
-        # GT bbox passed to judge so it can annotate the edit region
-        bbox = idata.get("bbox", "") or gt.get(idx, {}).get("bbox", "")
+        # GT bbox is the judge's reference region (already normalized to [0, 1000]
+        # by load_ugg_gt). This is evaluation ground truth, not an inference input.
+        bbox = gt.get(idx, {}).get("bbox", "")
 
-        direct_path = direct_edits.get(idx, "")
-        guided_path = guided_edits.get(idx, "")
+        edit_path = edits.get(idx, "")
 
         if orig_path and os.path.exists(orig_path):
-            if direct_path and os.path.exists(direct_path):
-                judge_tasks_direct[idx] = (orig_path, direct_path, instruction, operation, bbox)
-            if guided_path and os.path.exists(guided_path):
-                judge_tasks_guided[idx] = (orig_path, guided_path, instruction, operation, bbox)
+            if edit_path and os.path.exists(edit_path):
+                judge_tasks[idx] = (orig_path, edit_path, instruction, operation, bbox)
 
-    total_judge = len(judge_tasks_direct) + len(judge_tasks_guided)
+    total_judge = len(judge_tasks)
     print(f"[UGG] {len(all_indices)} samples, {total_judge} judge calls queued...")
 
-    direct_scores: dict = {}   # idx -> float
-    guided_scores: dict = {}   # idx -> float
+    edit_scores: dict = {}   # idx -> float
 
     def _rate(args):
         orig, edited, instruction, operation, bbox = args
         return judge.rate_edit(orig, edited, instruction, operation, bbox)
 
     with ThreadPoolExecutor(max_workers=max_workers) as ex:
-        fut_map = {}
-        for idx, args in judge_tasks_direct.items():
-            fut_map[ex.submit(_rate, args)] = ("direct", idx)
-        for idx, args in judge_tasks_guided.items():
-            fut_map[ex.submit(_rate, args)] = ("guided", idx)
+        fut_map = {ex.submit(_rate, args): idx for idx, args in judge_tasks.items()}
 
         with tqdm(total=total_judge, desc="[UGG] judge", unit="call") as pbar:
             for fut in as_completed(fut_map):
-                kind, idx = fut_map[fut]
+                idx = fut_map[fut]
                 try:
                     score = fut.result()
                 except Exception:
                     score = 0.0
-                if kind == "direct":
-                    direct_scores[idx] = score
-                else:
-                    guided_scores[idx] = score
+                edit_scores[idx] = score
                 pbar.update(1)
 
     # --- Compute per-sample scores ---
@@ -170,23 +153,24 @@ def evaluate_ugg(
     failure_reasons: dict = {}
 
     for idx in sorted(all_indices):
-        idata = input_data_cache.get(idx, {})
         gt_item = gt.get(idx, {})
 
-        gt_bbox = idata.get("bbox", "") or gt_item.get("bbox", "")
-        gt_mask = idata.get("mask", "") or gt_item.get("mask", "")
+        # GT bbox/mask are already normalized to [0, 1000] by load_ugg_gt; always use GT
+        gt_bbox = gt_item.get("bbox", "")
+        gt_mask = gt_item.get("mask", "")
+        img_w = gt_item.get("img_w")
+        img_h = gt_item.get("img_h")
         pred_text = bbox_preds.get(idx, "")
 
-        # Understanding: IoU
-        iou = compute_region_iou(pred_text, gt_bbox, gt_mask)
+        # Understanding: IoU (all coords in 0-1000 relative space)
+        iou = compute_region_iou(pred_text, gt_bbox, gt_mask, img_w, img_h, pixel_space=pixel_space_bbox)
         understanding_item = clip(iou)
 
-        # Generation: judge score on direct edit
-        generation_item = clip(direct_scores.get(idx, 0.0))
+        # Generation: judge score on the edit (made from the model's own predicted bbox)
+        generation_item = clip(edit_scores.get(idx, 0.0))
 
-        # Unified: (IoU + guided_edit_score) / 2
-        guided_edit_score = clip(guided_scores.get(idx, 0.0))
-        unified_item = clip((understanding_item + guided_edit_score) / 2.0)
+        # Unified: mean of understanding and generation
+        unified_item = clip((understanding_item + generation_item) / 2.0)
 
         row = {
             "dialogue_index": idx,
@@ -194,7 +178,6 @@ def evaluate_ugg(
             "generation_item": generation_item,
             "unified_item": unified_item,
             "iou": iou,
-            "guided_edit_score": guided_edit_score,
         }
         details.append(row)
         if output_csv:

@@ -34,11 +34,10 @@ def _generation_validation_score(
     if not gen_path or not os.path.exists(gen_path):
         return 0.0
 
+    # Generation quality is scored ONLY from the preset per-question validation
+    # (per-question yes/no). No direct image-description scoring fallback.
     if validate_questions:
         return judge.validate_generation_with_answers(gen_path, validate_questions)
-
-    if description:
-        return judge.rate_description_match(gen_path, description)
 
     return 0.0
 

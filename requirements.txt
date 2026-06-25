@@ -6,7 +6,7 @@
 
 # --- Inference pipeline ---
 torch
-transformers
+transformers>=4.57   # Qwen3-VL (judge + several backends) requires >=4.57
 pillow
 numpy
 pandas
@@ -14,5 +14,7 @@ pyyaml
 tqdm
 
 # --- Evaluation pipeline ---
-# The judge talks to the DashScope Qwen3-VL-Plus endpoint via the OpenAI SDK.
+# Local judge backend (default): runs a trained Qwen3-VL checkpoint across GPUs.
+accelerate
+# API judge backend: talks to the DashScope Qwen3-VL-Plus endpoint via the OpenAI SDK.
 openai
