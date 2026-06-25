@@ -31,8 +31,6 @@ The benchmark results reported in `results.tex` are reproduced below in Markdown
 Und., Gen., and Uni. denote understanding, generation, and unified scores, respectively.
 Bold and <u>underlined</u> values mirror the original highlighting for open-source models.
 
-### Open-Source Unified Multimodal Models
-
 | Model | Params | IC Und. | IC Gen. | IC Uni. | UGG Und. | UGG Gen. | UGG Uni. | GGU Und. | GGU Gen. | GGU Uni. | ME Und. | ME Gen. | ME Uni. | Overall |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | Show-o | 1.3B | 88.3 | 64.7 | 58.5 | 8.90 | - | - | 12.0 | - | - | - | - | - | - |
@@ -48,11 +46,6 @@ Bold and <u>underlined</u> values mirror the original highlighting for open-sour
 | BAGEL | 14B | <u>96.0</u> | **82.5** | **80.3** | 57.6 | **78.1** | **67.9** | **28.2** | <u>41.6</u> | **32.0** | 7.2 | **57.7** | <u>32.5</u> | **53.2** |
 | SEED-X | 17B | 82.8 | 38.9 | 34.2 | 18.6 | 13.7 | 16.1 | 13.5 | 27.4 | 20.8 | 0.2 | 16.8 | 8.5 | 19.9 |
 | UniWorld | 19B | 92.6 | 68.5 | 65.1 | **63.4** | 26.4 | 44.9 | <u>22.8</u> | 32.0 | 26.9 | **46.4** | 16.2 | 31.3 | 42.1 |
-
-### Closed-Source Models
-
-| Model | Params | IC Und. | IC Gen. | IC Uni. | UGG Und. | UGG Gen. | UGG Uni. | GGU Und. | GGU Gen. | GGU Uni. | ME Und. | ME Gen. | ME Uni. | Overall |
-|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | Gemini 3 Pro | - | 98.3 | 88.1 | 86.9 | 71.0 | 82.8 | 76.9 | 42.2 | 46.5 | 43.9 | 65.3 | 77.4 | 71.4 | 69.8 |
 | GPT-5.2 | - | 98.6 | 86.3 | 84.7 | 69.7 | 85.7 | 77.7 | 44.8 | 58.2 | 52.7 | 69.1 | 71.2 | 70.2 | 71.3 |
 
