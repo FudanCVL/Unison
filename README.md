@@ -90,6 +90,25 @@
   </tbody>
 </table>
 
+
+## 📦 Data Preparation
+
+The pipelines expect a benchmark data directory, released separately as **Unison-data** on [HuggingFace](https://huggingface.co/datasets/FudanCVL/Unison).
+
+**Where to put it:** download/unpack Unison-data to the repo root as `data/`. That is the default both launch scripts point at (`DATA_DIR=../data`), so no flags are needed:
+
+```
+Unison/
+└── data/                       # <- put benchmark data here
+    ├── Internal_Consistency/   # IC:  prompts.txt + questions.json
+    ├── Und_Guided_Gen/         # UGG: UGG.csv (+ referenced images)
+    ├── Gen_Guided_Und/         # GGU: 2D_Spatial/ 3D_Spatial/ Complex_Relation/
+    └── Mutual_Enhancement/     # ME:  ME.csv (+ referenced images)
+```
+
+To keep it elsewhere, pass `--data-dir /path/to/Unison-data` or set the `DATA_DIR` env var in the launch scripts.
+
+
 ## 🛠️ Installation
 
 ### Step 1 — Base environment
@@ -125,23 +144,6 @@ UM=/data/Unified_Models ./setup_envs.sh bagel janus omnigen2
 
 Each group clones its upstream repo into `$UM/<Repo>` and installs it into the corresponding conda env. The script is idempotent; logs go to `setup_logs/`.
 
-## 📦 Data
-
-The pipelines expect a benchmark data directory, released separately as **Unison-data** on [HuggingFace](https://huggingface.co/datasets/FudanCVL/Unison).
-
-**Where to put it:** download/unpack Unison-data to the repo root as `data/`. That is the default both launch scripts point at (`DATA_DIR=../data`), so no flags are needed:
-
-```
-Unison/
-└── data/                       # <- put Unison-data here
-    ├── Internal_Consistency/   # IC:  prompts.txt + questions.json
-    ├── Und_Guided_Gen/         # UGG: UGG.csv (+ referenced images)
-    ├── Gen_Guided_Und/         # GGU: 2D_Spatial/ 3D_Spatial/ Complex_Relation/
-    ├── Mutual_Enhancement/     # ME:  ME.csv (+ referenced images)
-    └── Judge_Consistency/      # judge-validation set: items.jsonl + images/
-```
-
-To keep it elsewhere, pass `--data-dir /path/to/Unison-data` or set the `DATA_DIR` env var in the launch scripts.
 
 ## ⚖️ Model Weights
 
