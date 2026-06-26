@@ -227,7 +227,7 @@ JUDGE_BACKEND=api OPENAI_API_KEY=sk-... MODELS=UniWorld-V1 ./run_evaluate_unison
 python aggregate_results.py   # -> evaluation_summary.json
 ```
 
-Output per model: `eval_<ModelName>.json`. See [`Inference_Pipeline/README.md`](Inference_Pipeline/README.md) and [`Evaluation_Pipeline/README.md`](Evaluation_Pipeline/README.md) for full options.
+Output per model: `eval_<ModelName>.json`.
 
 ## 📝 Citation
 
