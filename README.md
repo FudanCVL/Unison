@@ -92,45 +92,38 @@
 
 ## 🛠️ Installation
 
-There are two layers to install: a **base environment** (the orchestrator, judge, and data-handling code shared by both pipelines) and **one conda environment per model backend** (BAGEL, Janus, SEED-X, Show-o/Show-o2, TokenFlow, UniWorld, OmniGen2, ILLUME+, D-DiT). Each backend has heavy, mutually-incompatible dependencies, so each runs in its own env.
-
-### Automated setup (recommended)
-
-`Inference_Pipeline/setup_envs.sh` creates every conda environment and installs each backend's upstream code in one go. `UM` is the third-party **code** root — the same root `download_weights.sh` uses for **weights** — so repos land exactly where the configs expect them.
+### Step 1 — Base environment
 
 ```bash
 cd Inference_Pipeline
-
-# Everything: the base/judge env (conda env `unison`) + all model envs
-UM=/data/Unified_Models ./setup_envs.sh
-
-# Or only selected groups (group -> conda env):
-UM=/data/Unified_Models ./setup_envs.sh base bagel uniworld
+UM=/data/Unified_Models ./setup_envs.sh base
 ```
 
-| Group | conda env | Upstream repo (cloned into `$UM/…`) |
-|-------|-----------|-------------------------------------|
-| `base`      | `unison`    | — (installs this repo's `requirements.txt`) |
-| `bagel`     | `bagel`     | `ByteDance-Seed/Bagel` → `Bagel` |
-| `janus`     | `janus`     | `deepseek-ai/Janus` → `Janus` |
-| `omnigen2`  | `omnigen2`  | `VectorSpaceLab/OmniGen2` → `OmniGen2` |
-| `seedx`     | `seedx`     | `AILab-CVC/SEED-X` → `SEED-X` |
-| `showo`     | `showo2`    | `showlab/Show-o` → `Show-o` (Show-o-1.3B + Show-o2) |
-| `tokenflow` | `tokenflow` | `ByteVisionLab/TokenFlow` → `TokenFlow` |
-| `uniworld`  | `univa`     | `PKU-YuanGroup/UniWorld` → `UniWorld` |
-| `illume`    | `illume`    | `illume-unified-mllm/ILLUME_plus` → `ILLUME_plus` |
-| `ddit`      | `d-dit`     | `zijieli-Jlee/Dual-Diffusion` → `Dual-Diffusion` |
+Creates the `unison` conda env and installs `requirements.txt`. `UM` is the shared root for model code and weights.
 
-The script needs `conda` and `git`. It's idempotent — existing envs/clones are reused — and writes per-group logs to `Inference_Pipeline/setup_logs/`.
-
-### Manual setup
+### Step 2 — Per-model environments
 
 ```bash
-python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
+# All models at once
+UM=/data/Unified_Models ./setup_envs.sh
+
+# Or selected models
+UM=/data/Unified_Models ./setup_envs.sh bagel janus omnigen2
 ```
 
-Then install each backend from its upstream repository into a conda env named after that model's `conda_env`.
+| Group | conda env | Upstream repo |
+|-------|-----------|---------------|
+| `bagel`     | `bagel`     | `ByteDance-Seed/Bagel` |
+| `janus`     | `janus`     | `deepseek-ai/Janus` |
+| `omnigen2`  | `omnigen2`  | `VectorSpaceLab/OmniGen2` |
+| `seedx`     | `seedx`     | `AILab-CVC/SEED-X` |
+| `showo`     | `showo2`    | `showlab/Show-o` |
+| `tokenflow` | `tokenflow` | `ByteVisionLab/TokenFlow` |
+| `uniworld`  | `univa`     | `PKU-YuanGroup/UniWorld` |
+| `illume`    | `illume`    | `illume-unified-mllm/ILLUME_plus` |
+| `ddit`      | `d-dit`     | `zijieli-Jlee/Dual-Diffusion` |
+
+Each group clones its upstream repo into `$UM/<Repo>` and installs it into the corresponding conda env. The script is idempotent; logs go to `setup_logs/`.
 
 ## 📦 Data
 
