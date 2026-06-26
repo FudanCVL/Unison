@@ -19,10 +19,9 @@
 
 <p align="center"><img src="images/overview.png" alt="Unison Overview" width="100%"/></p>
 
-We introduce **Unison**, a comprehensive benchmark comprising 2,169 high-quality unified task samples, designed to evaluate joint understanding and generation in unified multimodal models. Unison offers three key strengths: **1) Comprehensive Dimensions**: Unison encompasses internal consistency, understanding-guided generation, generation-guided understanding, and mutual enhancement to enable holistic evaluation. **2) Diagnostic Evaluation**: it provides both unified and decoupled tracks for understanding and generation, allowing fine-grained attribution of failure modes and quantitative analysis of the gains from unified modeling. **3) Human Alignment**: we also train Unison-Judge, an evaluation model well aligned with human judgments to achieve reliable assessment.
 
 ## 🔥 Updates
-- **[2026/06/25]** We release **Unison-Bench** and **Unison-Judge**.
+- **[2026/06/25]** **Unison-Bench** and **Unison-Judge** are released.
 
 
 ## 📊 Evaluation Results
