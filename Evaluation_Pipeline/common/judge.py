@@ -537,7 +537,7 @@ def prf_from_matrix(matrix: List[List[float]], n_gt: int,
 # Judge class
 # ---------------------------------------------------------------------------
 
-class QwenVLPlusJudge:
+class ClosedSourceJudge:
     # ImgEdit (UGG / ME-generation) bbox handling:
     #   "full"    – embed the GT region-scoping instruction (default, legacy behaviour)
     #   "noscope" – drop the bbox AND remove the "Evaluation scope:" line entirely
@@ -545,20 +545,21 @@ class QwenVLPlusJudge:
     # Inherited by LocalQwenVLJudge; set per-run from --imgedit-bbox-mode.
     imgedit_bbox_mode: str = "full"
 
-    def __init__(self, api_key: str, model: str = "qwen3-vl-plus", max_workers: int = 8,
+    def __init__(self, api_key: str, model: str = "gpt-4o", max_workers: int = 8,
                  max_rate: float = 10.0, text_rate: float = 20.0,
+                 base_url: str = None,
                  enable_thinking: bool = False, thinking_max_tokens: int = 2048):
         self.client = OpenAI(
             api_key=api_key,
-            base_url="https://dashscope.aliyuncs.com/compatible-mode/v1",
+            base_url=base_url,
         )
         self.model = model
         self.max_workers = max_workers
         self._limiter = _RateLimiter(max_rate)        # for image-bearing requests
         self._text_limiter = _RateLimiter(text_rate)  # for text-only requests
-        # Qwen3-VL "thinking" mode. DashScope requires stream=True with enable_thinking,
-        # and the answer arrives after the (discarded) reasoning trace, so the token
-        # budget is raised. Off by default — production scoring stays non-thinking.
+        # Thinking mode: stream=True with enable_thinking; answer arrives after the
+        # (discarded) reasoning trace, so the token budget is raised.
+        # Off by default — production scoring stays non-thinking.
         self.enable_thinking = enable_thinking
         self.thinking_max_tokens = thinking_max_tokens
 
@@ -581,7 +582,7 @@ class QwenVLPlusJudge:
                 time.sleep(2 ** attempt)
 
     def _call_thinking(self, messages: list, max_tokens: int) -> str:
-        """Streamed call with Qwen3-VL thinking enabled. Returns only the answer
+        """Streamed call with thinking enabled. Returns only the answer
         ``content`` (the ``reasoning_content`` trace is consumed and discarded), so the
         caller's parsing is unchanged from the non-thinking path."""
         stream = self.client.chat.completions.create(

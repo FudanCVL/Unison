@@ -10,7 +10,7 @@ from common.io import load_csv, success_rows, load_ugg_gt, resolve_path
 from common.normalize import parse_bbox, parse_image_path
 from common.geometry import compute_region_iou
 from common.aggregate import clip, build_task_result, null_task_result
-from common.judge import QwenVLPlusJudge
+from common.judge import ClosedSourceJudge
 
 
 def _append_row(path: str, row: dict):
@@ -25,7 +25,7 @@ def _append_row(path: str, row: dict):
 def evaluate_ugg(
     csv_path: str,
     data_dir: str,
-    judge: QwenVLPlusJudge,
+    judge: ClosedSourceJudge,
     inference_base_dir: str,
     max_workers: int = 8,
     output_csv: str = None,

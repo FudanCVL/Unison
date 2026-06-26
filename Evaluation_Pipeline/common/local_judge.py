@@ -1,12 +1,12 @@
 """
-LocalQwenVLJudge — drop-in replacement for QwenVLPlusJudge that runs a locally
-trained Qwen3-VL checkpoint instead of the DashScope API. It reuses the API
-judge's prompts and scoring/parsing verbatim by inheriting every higher-level
+LocalQwenVLJudge — drop-in replacement for ClosedSourceJudge that runs a locally
+trained checkpoint instead of an API. It reuses the judge's prompts and
+scoring/parsing verbatim by inheriting every higher-level
 method and overriding only __init__ and _call.
 """
 from typing import Dict, List, Optional
 
-from common.judge import QwenVLPlusJudge
+from common.judge import ClosedSourceJudge
 from common.local_qwenvl import LocalQwenVLEngine, parse_gpu_ids
 
 
@@ -30,8 +30,8 @@ def _openai_to_engine_messages(messages: List[Dict]) -> List[Dict]:
     return out
 
 
-class LocalQwenVLJudge(QwenVLPlusJudge):
-    """Same public interface as QwenVLPlusJudge; runs a local model via a
+class LocalQwenVLJudge(ClosedSourceJudge):
+    """Same public interface as ClosedSourceJudge; runs a local model via a
     multi-GPU process pool. Only __init__ and _call are overridden."""
 
     def __init__(self, model_path: str, gpu_ids, max_workers: Optional[int] = None):

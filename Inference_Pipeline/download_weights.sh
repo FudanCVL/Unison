@@ -153,15 +153,9 @@ dl_illume3b() {
 }
 
 dl_ddit() {
-    # D-DiT ("Dual Diffusion for Unified Image Generation and Understanding", CVPR 2025)
-    # has no single public HuggingFace weight repo. It is initialized from Stable
-    # Diffusion 3 and fine-tuned by the authors. Obtain the trained checkpoint from
-    # the authors / project page, place it under $UM/Dual-Diffusion/, and set the
-    # D-DiT config model_path accordingly.
-    echo "[ddit] No public single-repo weights. See the CVPR 2025 paper / authors."
-    echo "[ddit] Fetching the SD3 base it builds on (GATED: login + accept license)..."
-    HF stabilityai/stable-diffusion-3-medium-diffusers --local-dir "$UM/Dual-Diffusion/sd3-medium-diffusers" \
-        || echo "[ddit] SD3 download failed (gated). Skipping; provide your own D-DiT checkpoint."
+    HF JleeOfficial/dual_diff_sd3_512_base --local-dir "$UM/Dual-Diffusion/dual_diff_sd3_512_base"
+    HF JleeOfficial/dual_diff_sd3_512_sft  --local-dir "$UM/Dual-Diffusion/dual_diff_sd3_512_sft"
+    echo "[ddit] done -> model_path: $UM/Dual-Diffusion/dual_diff_sd3_512_sft"
 }
 
 run_group() {

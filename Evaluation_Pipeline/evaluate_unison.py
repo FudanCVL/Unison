@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Unison evaluation pipeline — all four tasks. The judge runs either locally
-(a trained Qwen3-VL checkpoint, default) or via the DashScope Qwen3-VL-Plus API.
+(a trained Unison-Judge checkpoint, default) or via any OpenAI-compatible API.
 
 Usage
 -----
@@ -10,7 +10,7 @@ python evaluate_unison.py \
     --result-dir  ../Inference_Pipeline/result/BAGEL-7B-MoT \
     --data-dir    ../data \
     --inference-base-dir ../Inference_Pipeline \
-    --judge-backend local --local-model-path ./judge_model --gpu-ids 0,1,2,3 \
+    --judge-backend local --local-model-path ./unison-judge --gpu-ids 0,1,2,3 \
     --output      eval_BAGEL-7B-MoT.json
 
 # API judge
@@ -25,7 +25,7 @@ import json
 import os
 import sys
 
-from common.judge import QwenVLPlusJudge
+from common.judge import ClosedSourceJudge
 from tasks.evaluate_ic import evaluate_ic
 from tasks.evaluate_ugg import evaluate_ugg
 from tasks.evaluate_ggu import evaluate_ggu
@@ -119,11 +119,11 @@ def parse_args() -> argparse.Namespace:
     )
     p.add_argument(
         "--api-key", default=None,
-        help="DashScope API key. Falls back to DASHSCOPE_API_KEY env var.",
+        help="API key for the closed-source judge. Falls back to OPENAI_API_KEY env var.",
     )
     p.add_argument(
-        "--model", default="qwen3-vl-plus",
-        help="Judge model name (default: qwen3-vl-plus)",
+        "--model", default="gpt-4o",
+        help="Closed-source judge model name (default: gpt-4o)",
     )
     p.add_argument(
         "--output", default=None,
@@ -148,7 +148,7 @@ def parse_args() -> argparse.Namespace:
     )
     p.add_argument(
         "--judge-backend", choices=["local", "api"], default="local",
-        help="Judge backend: 'local' (trained Qwen3-VL via GPUs, default) or 'api' (DashScope).",
+        help="Judge backend: 'local' (Unison-Judge via GPUs, default) or 'api' (OpenAI-compatible closed-source model).",
     )
     p.add_argument(
         "--thinking-tasks", default="UGG,ME",
@@ -164,7 +164,7 @@ def parse_args() -> argparse.Namespace:
     )
     p.add_argument(
         "--local-model-path",
-        default=os.path.join(os.path.dirname(__file__), "judge_model"),
+        default=os.path.join(os.path.dirname(__file__), "unison-judge"),
         help="Path to the trained local judge model / Unison-Judge weights "
              "(used when --judge-backend local).",
     )
@@ -230,13 +230,13 @@ def main():
         print(f"Judge backend:      local ({args.local_model_path}) gpus={args.gpu_ids}")
         judge = LocalQwenVLJudge(args.local_model_path, args.gpu_ids, max_workers=args.max_workers)
     else:
-        api_key = args.api_key or os.environ.get("DASHSCOPE_API_KEY", "")
+        api_key = args.api_key or os.environ.get("OPENAI_API_KEY", "")
         if not api_key:
-            print("[ERROR] No DashScope API key. Pass --api-key or set DASHSCOPE_API_KEY.",
+            print("[ERROR] No API key. Pass --api-key or set OPENAI_API_KEY.",
                   file=sys.stderr)
             sys.exit(1)
         print(f"Judge backend:      api ({args.model})")
-        judge = QwenVLPlusJudge(api_key=api_key, model=args.model, max_workers=args.max_workers)
+        judge = ClosedSourceJudge(api_key=api_key, model=args.model, max_workers=args.max_workers)
 
     judge.imgedit_bbox_mode = args.imgedit_bbox_mode
     print(f"ImgEdit bbox mode:  {args.imgedit_bbox_mode}"

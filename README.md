@@ -93,20 +93,25 @@
 
 ## 📦 Data Preparation
 
-The pipelines expect a benchmark data directory, released separately as **Unison-data** on [HuggingFace](https://huggingface.co/datasets/FudanCVL/Unison).
+Download [Unison-Bench](https://huggingface.co/datasets/FudanCVL/Unison) from HuggingFace into `data/` at the repo root:
 
-**Where to put it:** download/unpack Unison-data to the repo root as `data/`. That is the default both launch scripts point at (`DATA_DIR=../data`), so no flags are needed:
+```bash
+huggingface-cli download FudanCVL/Unison \
+    --repo-type dataset --local-dir data/
+```
+
+The expected layout:
 
 ```
 Unison/
-└── data/                       # <- put benchmark data here
-    ├── Internal_Consistency/   # IC:  prompts.txt + questions.json
-    ├── Und_Guided_Gen/         # UGG: UGG.csv (+ referenced images)
-    ├── Gen_Guided_Und/         # GGU: 2D_Spatial/ 3D_Spatial/ Complex_Relation/
-    └── Mutual_Enhancement/     # ME:  ME.csv (+ referenced images)
+└── data/
+    ├── Internal_Consistency/
+    ├── Und_Guided_Gen/
+    ├── Gen_Guided_Und/
+    └── Mutual_Enhancement/
 ```
 
-To keep it elsewhere, pass `--data-dir /path/to/Unison-data` or set the `DATA_DIR` env var in the launch scripts.
+Both launch scripts default to `DATA_DIR=../data`, so no extra flags are needed. To use a different path, pass `--data-dir /path/to/data` or set `DATA_DIR`.
 
 
 ## 🛠️ Installation
@@ -115,19 +120,19 @@ To keep it elsewhere, pass `--data-dir /path/to/Unison-data` or set the `DATA_DI
 
 ```bash
 cd Inference_Pipeline
-UM=/data/Unified_Models ./setup_envs.sh base
+UMM=/data/Unified_Models ./setup_envs.sh base
 ```
 
-Creates the `unison` conda env and installs `requirements.txt`. `UM` is the shared root for model code and weights.
+Creates the `unison` conda env from the root `requirements.txt`. This env covers both the inference and the evaluation pipeline.
 
 ### Step 2 — Per-model environments
 
 ```bash
 # All models at once
-UM=/data/Unified_Models ./setup_envs.sh
+UMM=/data/Unified_Models ./setup_envs.sh
 
 # Or selected models
-UM=/data/Unified_Models ./setup_envs.sh bagel janus omnigen2
+UMM=/data/Unified_Models ./setup_envs.sh bagel omnigen2
 ```
 
 | Group | conda env | Upstream repo |
@@ -142,7 +147,7 @@ UM=/data/Unified_Models ./setup_envs.sh bagel janus omnigen2
 | `illume`    | `illume`    | `illume-unified-mllm/ILLUME_plus` |
 | `ddit`      | `d-dit`     | `zijieli-Jlee/Dual-Diffusion` |
 
-Each group clones its upstream repo into `$UM/<Repo>` and installs it into the corresponding conda env. The script is idempotent; logs go to `setup_logs/`.
+Each group clones its upstream repo into `$UMM/<Repo>` and installs it into the corresponding conda env. The script is idempotent; logs go to `setup_logs/`.
 
 
 ## ⚖️ Model Weights
@@ -164,22 +169,22 @@ Model configs in `Inference_Pipeline/config/*.json` reference local weight paths
 `download_weights.sh` fetches weights for all model backends. Set the local weight root and pick models:
 
 ```bash
-UM=/data/Unified_Models ./download_weights.sh                 # everything
-UM=/data/Unified_Models ./download_weights.sh bagel showo1    # selected groups
+UMM=/data/Unified_Models ./download_weights.sh                 # everything
+UMM=/data/Unified_Models ./download_weights.sh bagel showo1    # selected groups
 ```
 
-Gated repos (FLUX.1-dev, SD3) need `huggingface-cli login` + license acceptance. D-DiT has no public single-repo release — bring your own checkpoint. Run `setup_envs.sh` and `download_weights.sh` with the same `UM` so code and weights share one root.
+Gated repos (FLUX.1-dev, SD3) need `huggingface-cli login` + license acceptance. Run `setup_envs.sh` and `download_weights.sh` with the same `UMM` so code and weights share one root.
 
-### Judge weights (Unison-Judge)
+### Unison-Judge
 
-The default evaluation backend runs a trained **Qwen3-VL-8B** judge, released separately as **Unison-Judge** on [HuggingFace](https://huggingface.co/FudanCVL/Unison-Judge).
+The default evaluation backend runs [**Unison-Judge**](https://huggingface.co/FudanCVL/Unison-Judge).
 
-**Where to put it:** download the checkpoint into `Evaluation_Pipeline/judge_model/`. That is the default path used by `evaluate_unison.py` and `run_evaluate_unison.sh`, so no flags are needed:
+**Where to put it:** download the checkpoint into `Evaluation_Pipeline/unison-judge/`. That is the default path used by `evaluate_unison.py` and `run_evaluate_unison.sh`, so no flags are needed:
 
 ```
 Unison/
 └── Evaluation_Pipeline/
-    └── judge_model/            # <- put Unison-Judge weights here
+    └── unison-judge/            # <- put Unison-Judge weights here
         ├── config.json
         ├── model-*.safetensors
         └── ...
@@ -187,9 +192,42 @@ Unison/
 
 To keep it elsewhere, set `LOCAL_JUDGE_MODEL=/path/to/judge` or pass `--local-model-path /path/to/judge`. No local judge weights are needed when using the `api` backend.
 
-## 🚀 Inference and Evaluation
 
-See [`Inference_Pipeline/README.md`](Inference_Pipeline/README.md) and [`Evaluation_Pipeline/README.md`](Evaluation_Pipeline/README.md) for the detailed guides.
+## 🚀 Inference
+
+```bash
+cd Inference_Pipeline
+
+# Run all tasks on one model
+GPUS=0,1,2,3,4,5,6,7 MODELS=BAGEL-7B-MoT TASKS=IC,UGG,GGU,ME ./run.sh
+
+# Select tasks or test with 2 items
+GPUS=0,1,2,3 MODELS=UniWorld-V1 TASKS=IC,GGU ./run.sh
+GPUS=0 MODELS=Janus-Pro-7B TEST_MODE=true ./run.sh
+```
+
+Results are written to `result/<ModelName>/<TaskID>/<TaskID>_<ModelName>_results.csv`.
+
+## 📐 Evaluation
+
+```bash
+cd Evaluation_Pipeline
+
+# Local judge (default) — uses Unison-Judge weights
+GPU_IDS=0,1,2,3 MODELS=BAGEL-7B-MoT ./run_evaluate_unison.sh
+
+# Select tasks or evaluate several models at once
+MODELS=BAGEL-7B-MoT TASKS=IC,GGU ./run_evaluate_unison.sh
+MODELS="BAGEL-7B-MoT,UniWorld-V1" GPU_IDS=0,1,2,3,4,5,6,7 ./run_evaluate_unison.sh
+
+# Closed-source model API judge
+JUDGE_BACKEND=api OPENAI_API_KEY=sk-... MODELS=UniWorld-V1 ./run_evaluate_unison.sh
+
+# Aggregate results across models
+python aggregate_results.py   # -> evaluation_summary.json
+```
+
+Output per model: `eval_<ModelName>.json`. See [`Inference_Pipeline/README.md`](Inference_Pipeline/README.md) and [`Evaluation_Pipeline/README.md`](Evaluation_Pipeline/README.md) for full options.
 
 ## 📝 Citation
 
@@ -199,7 +237,7 @@ If you find this work useful, please cite:
 @inproceedings{liu2026unison,
   title     = {Unison: Benchmarking Unified Multimodal Models via Synergistic Understanding and Generation},
   author    = {Liu, Jinyu and Shuai, Xincheng and Ding, Henghui and Jiang, Yu-Gang},
-  booktitle = {International Conference on Machine Learning (ICML)},
+  booktitle = {International Conference on Machine Learning},
   year      = {2026}
 }
 ```

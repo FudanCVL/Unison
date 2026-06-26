@@ -10,11 +10,11 @@
 #   TASKS    - comma-separated subset of IC,UGG,GGU,ME to score (default: IC,UGG,GGU,ME).
 #
 # Judge backend:
-#   JUDGE_BACKEND      - 'local' (default, trained Qwen3-VL) or 'api' (DashScope Qwen3-VL-Plus)
+#   JUDGE_BACKEND      - 'local' (default, Unison-Judge) or 'api' (OpenAI-compatible closed-source model)
 #   GPU_IDS            - GPUs for the local judge, e.g. '0-7' or '0,1,2' (default: 0-1)
-#   LOCAL_JUDGE_MODEL  - path to the local judge / Unison-Judge weights (default: ./judge_model)
+#   LOCAL_JUDGE_MODEL  - path to the local judge / Unison-Judge weights (default: ./unison-judge)
 #   LOCAL_JUDGE_IO_LOG - local judge per-call I/O log path (default: judge_io_local.csv)
-#   API_KEY            - DashScope key (or DASHSCOPE_API_KEY); required only for JUDGE_BACKEND=api
+#   API_KEY            - API key (or OPENAI_API_KEY); required only for JUDGE_BACKEND=api
 #
 # Paths / misc:
 #   DATA_DIR           - benchmark data dir / Unison-data (default: ../data)
@@ -29,7 +29,7 @@
 #   MODELS=UniWorld-V1 ./run_evaluate_unison.sh                       # one model, all tasks, local judge
 #   MODELS=BAGEL-7B-MoT TASKS=IC,GGU ./run_evaluate_unison.sh          # choose tasks
 #   MODELS="BAGEL-7B-MoT,Janus-Pro-7B" ./run_evaluate_unison.sh        # several models
-#   JUDGE_BACKEND=api API_KEY=sk-... MODELS=UniWorld-V1 ./run_evaluate_unison.sh   # API judge
+#   JUDGE_BACKEND=api OPENAI_API_KEY=sk-... MODELS=UniWorld-V1 ./run_evaluate_unison.sh   # API judge
 
 set -euo pipefail
 
@@ -45,7 +45,7 @@ TASKS="${TASKS:-IC,UGG,GGU,ME}"
 
 JUDGE_BACKEND="${JUDGE_BACKEND:-local}"
 GPU_IDS="${GPU_IDS:-0-1}"
-LOCAL_JUDGE_MODEL="${LOCAL_JUDGE_MODEL:-${SCRIPT_DIR}/judge_model}"
+LOCAL_JUDGE_MODEL="${LOCAL_JUDGE_MODEL:-${SCRIPT_DIR}/unison-judge}"
 LOCAL_JUDGE_IO_LOG="${LOCAL_JUDGE_IO_LOG:-${SCRIPT_DIR}/judge_io_local.csv}"
 
 DATA_DIR="${DATA_DIR:-${SCRIPT_DIR}/../data}"
@@ -53,9 +53,9 @@ INFERENCE_BASE_DIR="${INFERENCE_BASE_DIR:-${SCRIPT_DIR}/../Inference_Pipeline}"
 MAX_WORKERS="${MAX_WORKERS:-8}"
 IMGEDIT_BBOX_MODE="${IMGEDIT_BBOX_MODE:-full}"
 
-API_KEY="${API_KEY:-${DASHSCOPE_API_KEY:-}}"
+API_KEY="${API_KEY:-${OPENAI_API_KEY:-}}"
 if [[ "$JUDGE_BACKEND" == "api" && -z "$API_KEY" ]]; then
-  echo "ERROR: API_KEY or DASHSCOPE_API_KEY is required for JUDGE_BACKEND=api" >&2
+  echo "ERROR: API_KEY or OPENAI_API_KEY is required for JUDGE_BACKEND=api" >&2
   exit 1
 fi
 
