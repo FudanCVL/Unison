@@ -21,7 +21,7 @@
 
 
 ## 🔥 Updates
-- **[2026/06/26]** Annotations about 
+- **[2026/06/26]** Annotations about human consistency are released at [HuggingFace](https://huggingface.co/FudanCVL/Unison-Judge/tree/main/Judge_Consistency).
 - **[2026/06/25]** **Unison-Bench** and **Unison-Judge** are released.
 
 
