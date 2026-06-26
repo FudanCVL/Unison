@@ -11,7 +11,7 @@
 # Usage:
 #   ./setup_envs.sh                          # set up EVERYTHING (base + all models)
 #   ./setup_envs.sh base bagel uniworld      # set up selected groups only
-#   UM=/data/Unified_Models ./setup_envs.sh  # choose where upstream CODE is cloned
+#   UMM=/data/Unified_Models ./setup_envs.sh  # choose where upstream CODE is cloned
 #
 # Groups  (group -> conda env -> upstream repo):
 #   base       -> unison      (this repo's requirements.txt: orchestrator + judge)
@@ -34,10 +34,10 @@
 # Notes:
 #   - Idempotent: an existing conda env is reused, an existing clone is left as-is
 #     (only `git clone` is skipped, pip install still runs so deps stay current).
-#   - $UM is the SAME third-party root used by download_weights.sh, so each repo
+#   - $UMM is the SAME third-party root used by download_weights.sh, so each repo
 #     is cloned to exactly the path the config `*_project_path` fields expect
-#     (e.g. $UM/Bagel, $UM/UniWorld/UniWorld-V1). After running both scripts,
-#     replace the /path/to/Unified_Models placeholders in config/*.json with $UM.
+#     (e.g. $UMM/Bagel, $UMM/UniWorld/UniWorld-V1). After running both scripts,
+#     replace the /path/to/Unified_Models placeholders in config/*.json with $UMM.
 #   - flash-attn / flash_attn builds are best-effort; a failure is logged and the
 #     group continues (most backends run without it, just slower).
 #   - Per-group logs: setup_logs/<group>.log
@@ -48,7 +48,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 
 # Third-party model CODE root (shared with download_weights.sh weight root).
-UM="${UM:-/path/to/Unified_Models}"
+UMM="${UMM:-/path/to/Unified_Models}"
 # conda install prefix (used to source conda.sh), same convention as run.sh.
 CONDA_BASE="${CONDA_BASE:-$HOME/anaconda3}"
 # Optional faster PyPI / HF mirrors (uncomment / export to use them).
@@ -119,8 +119,8 @@ setup_base() {
 
 setup_bagel() {
     ensure_env bagel 3.10
-    clone_repo https://github.com/ByteDance-Seed/Bagel.git "$UM/Bagel"
-    in_env bagel "$UM/Bagel" "
+    clone_repo https://github.com/ByteDance-Seed/Bagel.git "$UMM/Bagel"
+    in_env bagel "$UMM/Bagel" "
         pip install -r requirements.txt
         pip install flash_attn==2.5.8 --no-build-isolation || echo '[bagel] flash_attn build failed (optional)'
         pip install -q $ORCH_DEPS
@@ -129,8 +129,8 @@ setup_bagel() {
 
 setup_janus() {
     ensure_env janus 3.10
-    clone_repo https://github.com/deepseek-ai/Janus.git "$UM/Janus"
-    in_env janus "$UM/Janus" "
+    clone_repo https://github.com/deepseek-ai/Janus.git "$UMM/Janus"
+    in_env janus "$UMM/Janus" "
         pip install -e .
         pip install -q $ORCH_DEPS
     "
@@ -138,8 +138,8 @@ setup_janus() {
 
 setup_omnigen2() {
     ensure_env omnigen2 3.11
-    clone_repo https://github.com/VectorSpaceLab/OmniGen2.git "$UM/OmniGen2"
-    in_env omnigen2 "$UM/OmniGen2" "
+    clone_repo https://github.com/VectorSpaceLab/OmniGen2.git "$UMM/OmniGen2"
+    in_env omnigen2 "$UMM/OmniGen2" "
         pip install torch==2.6.0 torchvision --extra-index-url https://download.pytorch.org/whl/cu124
         pip install -r requirements.txt
         pip install flash-attn==2.7.4.post1 --no-build-isolation || echo '[omnigen2] flash-attn build failed (optional)'
@@ -149,8 +149,8 @@ setup_omnigen2() {
 
 setup_seedx() {
     ensure_env seedx 3.10
-    clone_repo https://github.com/AILab-CVC/SEED-X.git "$UM/SEED-X"
-    in_env seedx "$UM/SEED-X" "
+    clone_repo https://github.com/AILab-CVC/SEED-X.git "$UMM/SEED-X"
+    in_env seedx "$UMM/SEED-X" "
         pip install -r requirements.txt
         pip install -q $ORCH_DEPS
     "
@@ -161,8 +161,8 @@ setup_seedx() {
 setup_showo() {
     # Env 'showo2' is shared by Show-o-1.3B and Show-o2 (see config/Show-o*.json).
     ensure_env showo2 3.10
-    clone_repo https://github.com/showlab/Show-o.git "$UM/Show-o"
-    in_env showo2 "$UM/Show-o" "
+    clone_repo https://github.com/showlab/Show-o.git "$UMM/Show-o"
+    in_env showo2 "$UMM/Show-o" "
         pip install -r requirements.txt
         pip install -q $ORCH_DEPS
     "
@@ -172,8 +172,8 @@ setup_showo() {
 
 setup_tokenflow() {
     ensure_env tokenflow 3.10
-    clone_repo https://github.com/ByteVisionLab/TokenFlow.git "$UM/TokenFlow"
-    in_env tokenflow "$UM/TokenFlow" "
+    clone_repo https://github.com/ByteVisionLab/TokenFlow.git "$UMM/TokenFlow"
+    in_env tokenflow "$UMM/TokenFlow" "
         pip install -r t2i/requirements.txt
         ( cd i2t && pip install -e . )   # installs the 'llava' understanding package
         pip install -q $ORCH_DEPS
@@ -183,8 +183,8 @@ setup_tokenflow() {
 setup_uniworld() {
     # Env 'univa'; the runnable code lives in the UniWorld-V1 subdir.
     ensure_env univa 3.10
-    clone_repo https://github.com/PKU-YuanGroup/UniWorld.git "$UM/UniWorld"
-    in_env univa "$UM/UniWorld/UniWorld-V1" "
+    clone_repo https://github.com/PKU-YuanGroup/UniWorld.git "$UMM/UniWorld"
+    in_env univa "$UMM/UniWorld/UniWorld-V1" "
         pip install -r requirements.txt
         pip install flash_attn --no-build-isolation || echo '[uniworld] flash_attn build failed (optional)'
         pip install -q $ORCH_DEPS
@@ -193,8 +193,8 @@ setup_uniworld() {
 
 setup_illume() {
     ensure_env illume 3.9
-    clone_repo https://github.com/illume-unified-mllm/ILLUME_plus.git "$UM/ILLUME_plus"
-    in_env illume "$UM/ILLUME_plus" "
+    clone_repo https://github.com/illume-unified-mllm/ILLUME_plus.git "$UMM/ILLUME_plus"
+    in_env illume "$UMM/ILLUME_plus" "
         pip install -U pip setuptools
         ( cd ILLUME && pip install -e . )
         pip install flash-attn --no-build-isolation || echo '[illume] flash-attn build failed (optional)'
@@ -205,8 +205,8 @@ setup_illume() {
 setup_ddit() {
     # Env 'd-dit'. Public code only; bring your own trained checkpoint (see README).
     ensure_env d-dit 3.10
-    clone_repo https://github.com/zijieli-Jlee/Dual-Diffusion.git "$UM/Dual-Diffusion"
-    in_env d-dit "$UM/Dual-Diffusion" "
+    clone_repo https://github.com/zijieli-Jlee/Dual-Diffusion.git "$UMM/Dual-Diffusion"
+    in_env d-dit "$UMM/Dual-Diffusion" "
         pip install -r requirements.txt
         pip install -q $ORCH_DEPS
     "
@@ -227,12 +227,12 @@ ALL=(base bagel janus omnigen2 seedx showo tokenflow uniworld illume ddit)
 GROUPS=("$@")
 [ ${#GROUPS[@]} -eq 0 ] && GROUPS=("${ALL[@]}")
 
-if [ "$UM" = "/path/to/Unified_Models" ]; then
-    echo "WARNING: UM is the placeholder '/path/to/Unified_Models'. Set your own root," >&2
-    echo "         e.g.  UM=/data/Unified_Models ./setup_envs.sh" >&2
+if [ "$UMM" = "/path/to/Unified_Models" ]; then
+    echo "WARNING: UMM is the placeholder '/path/to/Unified_Models'. Set your own root," >&2
+    echo "         e.g.  UMM=/data/Unified_Models ./setup_envs.sh" >&2
 fi
-echo "conda base:   $CONDA_BASE"
-echo "code root UM: $UM"
+echo "conda base:    $CONDA_BASE"
+echo "code root UMM: $UMM"
 echo "groups:       ${GROUPS[*]}"
 echo
 
@@ -254,5 +254,5 @@ done
 
 echo "Done. Logs: $LOGDIR/"
 echo "Next: download weights (./download_weights.sh) and point each config/*.json"
-echo "      model_path / *_project_path at \$UM=$UM."
+echo "      model_path / *_project_path at \$UMM=$UMM."
 exit $STATUS

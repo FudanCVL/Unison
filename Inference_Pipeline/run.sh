@@ -4,7 +4,7 @@
 # ============================================
 
 # GPU IDs (required, comma-separated)
-GPUS="1,2,3,4,5,6,7"
+GPUS="0,1,2,3,4,5,6,7"
 
 # Task list (optional; a single task as a string, or multiple comma-separated, e.g. "IC" or "IC,UGG,GGU,ME")
 
@@ -14,17 +14,10 @@ GPUS="1,2,3,4,5,6,7"
 # Each model runs in the conda_env specified in its config (isolated from each other)
 # If empty, the default model list in infer.py is used (runs only in the base env)
 
-# MODELS="Show-o2-7B,TokenFlow,Janus-Pro-7B,BAGEL-7B-MoT,OmniGen2,UniWorld-V1,SEED-X-17B,ILLUME-plus-7B"
-
 # All four tasks supported
-MODELS="BAGEL-7B-MoT,OmniGen2,UniWorld-V1,SEED-X-17B,ILLUME-plus-7B,ILLUME-plus-3B"
+MODELS="BAGEL-7B-MoT,OmniGen2,UniWorld-V1,SEED-X-17B,ILLUME-plus-7B,ILLUME-plus-3B,Show-o2-7B,Show-o-1.3B,Show-o2-1.5B,Janus-Pro-7B,Janus-Pro-1B,TokenFlow,D-DiT"
 
-# MODELS="ILLUME-plus-3B"
-# MODELS="ILLUME-plus-7B,D-DiT"
-
-# TASKS="IC,UGG,GGU,ME"
-
-TASKS="ME"
+TASKS="IC,UGG,GGU,ME"
 
 # Test mode (optional; set to "true" or "1" to enable test mode, processing only 2 items per task)
 TEST_MODE=""
@@ -36,7 +29,7 @@ TEST_MODE=""
 DATA_DIR="../data"
 
 # Result directory
-RESULT_DIR="result-0601"
+RESULT_DIR="result"
 
 # conda install path (used to source conda.sh)
 CONDA_BASE="${CONDA_BASE:-$HOME/anaconda3}"
@@ -168,13 +161,6 @@ if [ -z "$NORMALIZED_MODELS" ]; then
     exit $?
 fi
 
-# RUN_COUNT=0
-# while true; do
-# RUN_COUNT=$((RUN_COUNT + 1))
-# echo ""
-# echo "============================================"
-# echo "Run round $RUN_COUNT started ($(date '+%Y-%m-%d %H:%M:%S'))"
-# echo "============================================"
 
 OVERALL_STATUS=0
 IFS=',' read -ra MODEL_LIST <<< "$NORMALIZED_MODELS"
@@ -227,12 +213,3 @@ done
 
 echo ""
 echo "============================================"
-# if [ $OVERALL_STATUS -eq 0 ]; then
-#     echo "All models completed"
-# else
-#     echo "Some models failed (exit $OVERALL_STATUS)"
-# fi
-# echo "Run round $RUN_COUNT finished, restarting in 5 seconds..."
-# echo "============================================"
-# sleep 5
-# done

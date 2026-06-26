@@ -229,6 +229,10 @@ python aggregate_results.py   # -> evaluation_summary.json
 
 Output per model: `eval_<ModelName>.json`.
 
+## 🙏 Acknowledgement
+
+We sincerely thank the open-source community for their outstanding contributions. Unison-Judge is built upon [Qwen3-VL](https://github.com/QwenLM/Qwen2.5-VL). The evaluated models, including [BAGEL](https://github.com/ByteDance-Seed/Bagel), [UniWorld](https://github.com/PKU-YuanGroup/UniWorld), [OmniGen2](https://github.com/VectorSpaceLab/OmniGen2), [Show-o](https://github.com/showlab/Show-o), [Janus-Pro](https://github.com/deepseek-ai/Janus), [SEED-X](https://github.com/AILab-CVC/SEED-X), [TokenFlow](https://github.com/ByteVisionLab/TokenFlow), [ILLUME+](https://github.com/illume-unified-mllm/ILLUME_plus), and [D-DiT](https://github.com/zijieli-Jlee/Dual-Diffusion) et al., form the foundation of this benchmark. We are grateful to all the authors for making their work publicly available.
+
 ## 📝 Citation
 
 If you find this work useful, please cite:

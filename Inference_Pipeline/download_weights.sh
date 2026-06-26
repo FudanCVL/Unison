@@ -5,7 +5,7 @@
 # Usage:
 #   ./download_weights.sh                       # download ALL models
 #   ./download_weights.sh bagel janus7b showo1  # download selected groups
-#   UM=/data/Unified_Models ./download_weights.sh   # choose the local weight root
+#   UMM=/data/Unified_Models ./download_weights.sh   # choose the local weight root
 #
 # Groups (one per model):
 #   bagel  janus7b  janus1b  omnigen2  uniworld  seedx
@@ -18,7 +18,7 @@
 #   - Optional faster mirror: export HF_ENDPOINT=https://hf-mirror.com
 #
 # How weights are placed:
-#   * Top-level model weights go to  $UM/<Model>/...  — then edit that model's
+#   * Top-level model weights go to  $UMM/<Model>/...  — then edit that model's
 #     config/<Model>.json `model_path` (replace the /path/to/Unified_Models
 #     placeholder) to point at the downloaded directory.
 #   * Auxiliary base models referenced by HuggingFace repo id from inside the
@@ -34,48 +34,48 @@
 set -u
 : "${HF_ENDPOINT:=https://hf-mirror.com}"; export HF_ENDPOINT
 
-UM="${UM:-/path/to/Unified_Models}"
+UMM="${UMM:-/path/to/Unified_Models}"
 LOGDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/download_logs"
 mkdir -p "$LOGDIR"
 
 HF() { huggingface-cli download "$@"; }
 
-# -------------------- repo-id models (also placed under $UM) --------------------
+# -------------------- repo-id models (also placed under $UMM) --------------------
 
 dl_bagel() {
-    HF ByteDance-Seed/BAGEL-7B-MoT --local-dir "$UM/Bagel/BAGEL-7B-MoT"
-    echo "[bagel] done -> set model_path to $UM/Bagel/BAGEL-7B-MoT (or keep the repo id)"
+    HF ByteDance-Seed/BAGEL-7B-MoT --local-dir "$UMM/Bagel/BAGEL-7B-MoT"
+    echo "[bagel] done -> set model_path to $UMM/Bagel/BAGEL-7B-MoT (or keep the repo id)"
 }
 
 dl_janus7b() {
-    HF deepseek-ai/Janus-Pro-7B --local-dir "$UM/Janus-Pro-7B"
-    echo "[janus7b] done -> model_path: $UM/Janus-Pro-7B"
+    HF deepseek-ai/Janus-Pro-7B --local-dir "$UMM/Janus-Pro-7B"
+    echo "[janus7b] done -> model_path: $UMM/Janus-Pro-7B"
 }
 
 dl_janus1b() {
-    HF deepseek-ai/Janus-Pro-1B --local-dir "$UM/Janus-Pro-1B"
-    echo "[janus1b] done -> model_path: $UM/Janus-Pro-1B"
+    HF deepseek-ai/Janus-Pro-1B --local-dir "$UMM/Janus-Pro-1B"
+    echo "[janus1b] done -> model_path: $UMM/Janus-Pro-1B"
 }
 
 dl_omnigen2() {
-    HF OmniGen2/OmniGen2 --local-dir "$UM/OmniGen2/OmniGen2"
-    echo "[omnigen2] done -> model_path: $UM/OmniGen2/OmniGen2 (or keep the repo id)"
+    HF OmniGen2/OmniGen2 --local-dir "$UMM/OmniGen2/OmniGen2"
+    echo "[omnigen2] done -> model_path: $UMM/OmniGen2/OmniGen2 (or keep the repo id)"
 }
 
 # -------------------- local-dir models (+ base models in cache) --------------------
 
 dl_uniworld() {
-    local w="$UM/UniWorld/UniWorld-V1/model_weights/UniWorld-V1"
+    local w="$UMM/UniWorld/UniWorld-V1/model_weights/UniWorld-V1"
     HF LanguageBind/UniWorld-V1 --local-dir "$w"
     # Base models loaded alongside UniWorld (FLUX.1-dev is GATED -> requires login + license)
-    HF black-forest-labs/FLUX.1-dev          --local-dir "$UM/UniWorld/FLUX.1-dev" \
+    HF black-forest-labs/FLUX.1-dev          --local-dir "$UMM/UniWorld/FLUX.1-dev" \
         || echo "[uniworld] FLUX.1-dev failed (gated: huggingface-cli login + accept license)"
-    HF google/siglip2-so400m-patch16-512     --local-dir "$UM/UniWorld/siglip2-so400m-patch16-512"
+    HF google/siglip2-so400m-patch16-512     --local-dir "$UMM/UniWorld/siglip2-so400m-patch16-512"
     echo "[uniworld] done -> model_path: $w"
 }
 
 dl_seedx() {
-    local pt="$UM/SEED-X/model_weights"
+    local pt="$UMM/SEED-X/model_weights"
     mkdir -p "$pt"
     # Main bundle: internally laid out as seed_x / seed_x_i / seed_x_edit / seed_detokenizer / cvlm_..._tokenizer
     HF AILab-CVC/SEED-X-17B --local-dir "$pt"
@@ -108,9 +108,9 @@ dl_showo2_7b() {
 }
 
 dl_showo2_1_5b() {
-    HF showlab/show-o2-1.5B --local-dir "$UM/Show-o/show-o2-1.5B"
+    HF showlab/show-o2-1.5B --local-dir "$UMM/Show-o/show-o2-1.5B"
     HF Qwen/Qwen2.5-1.5B-Instruct
-    echo "[showo2_1_5b] done -> model_path: $UM/Show-o/show-o2-1.5B"
+    echo "[showo2_1_5b] done -> model_path: $UMM/Show-o/show-o2-1.5B"
     echo "[showo2_1_5b] NOTE: also fetch the Wan2.1 VAE (Wan2.1_VAE.pth) and set vae_model_path."
 }
 
@@ -120,42 +120,42 @@ dl_tokenflow() {
     # Generation t2i
     HF ByteFlow-AI/TokenFlow-t2i
     # VQ tokenizer .pt files -> pretrained_ckpts/
-    local pc="$UM/TokenFlow/pretrained_ckpts"
+    local pc="$UMM/TokenFlow/pretrained_ckpts"
     mkdir -p "$pc"
     HF ByteFlow-AI/TokenFlow tokenflow_clipb_32k_enhanced.pt tokenflow_siglip_32k.pt --local-dir "$pc"
     echo "[tokenflow] done -> tokenizer_path: $pc/tokenflow_clipb_32k_enhanced.pt"
 }
 
 dl_illume7b() {
-    local ck="$UM/ILLUME_plus/checkpoints"
+    local ck="$UMM/ILLUME_plus/checkpoints"
     mkdir -p "$ck"
     HF ILLUME-MLLM/illume_plus-qwen2_5-7b --local-dir "$ck/illume_plus-qwen2_5-7b"
     HF ILLUME-MLLM/dualvitok              --local-dir "$ck/dualvitok"
     HF ILLUME-MLLM/dualvitok-sdxl-decoder --local-dir "$ck/dualvitok-sdxl-decoder"
     # Symlink the MLLM to the logdir path expected by the stage3 config
-    local ld="$UM/ILLUME_plus/logdir/illume_plus_7b"
+    local ld="$UMM/ILLUME_plus/logdir/illume_plus_7b"
     mkdir -p "$ld"
     ln -sfn "$ck/illume_plus-qwen2_5-7b" "$ld/illume_plus-qwen2_5-7b_stage3"
     echo "[illume7b] done"
 }
 
 dl_illume3b() {
-    local ck="$UM/ILLUME_plus/checkpoints"
+    local ck="$UMM/ILLUME_plus/checkpoints"
     mkdir -p "$ck"
     HF ILLUME-MLLM/illume_plus-qwen2_5-3b --local-dir "$ck/illume_plus-qwen2_5-3b"
     # DualViTok + SDXL decoder are shared with the 7B model (download once if absent)
     [ -d "$ck/dualvitok" ]              || HF ILLUME-MLLM/dualvitok              --local-dir "$ck/dualvitok"
     [ -d "$ck/dualvitok-sdxl-decoder" ] || HF ILLUME-MLLM/dualvitok-sdxl-decoder --local-dir "$ck/dualvitok-sdxl-decoder"
-    local ld="$UM/ILLUME_plus/logdir/illume_plus_3b"
+    local ld="$UMM/ILLUME_plus/logdir/illume_plus_3b"
     mkdir -p "$ld"
     ln -sfn "$ck/illume_plus-qwen2_5-3b" "$ld/illume_plus-qwen2_5-3b_stage3"
     echo "[illume3b] done"
 }
 
 dl_ddit() {
-    HF JleeOfficial/dual_diff_sd3_512_base --local-dir "$UM/Dual-Diffusion/dual_diff_sd3_512_base"
-    HF JleeOfficial/dual_diff_sd3_512_sft  --local-dir "$UM/Dual-Diffusion/dual_diff_sd3_512_sft"
-    echo "[ddit] done -> model_path: $UM/Dual-Diffusion/dual_diff_sd3_512_sft"
+    HF JleeOfficial/dual_diff_sd3_512_base --local-dir "$UMM/Dual-Diffusion/dual_diff_sd3_512_base"
+    HF JleeOfficial/dual_diff_sd3_512_sft  --local-dir "$UMM/Dual-Diffusion/dual_diff_sd3_512_sft"
+    echo "[ddit] done -> model_path: $UMM/Dual-Diffusion/dual_diff_sd3_512_sft"
 }
 
 run_group() {
@@ -177,11 +177,11 @@ ALL=(bagel janus7b janus1b omnigen2 uniworld seedx showo1 showo2_7b showo2_1_5b 
 MODELS=("$@")
 [ ${#MODELS[@]} -eq 0 ] && MODELS=("${ALL[@]}")
 
-if [ "$UM" = "/path/to/Unified_Models" ]; then
-    echo "WARNING: UM is the placeholder '/path/to/Unified_Models'. Set UM=/your/root first," >&2
-    echo "         e.g.  UM=/data/Unified_Models ./download_weights.sh" >&2
+if [ "$UMM" = "/path/to/Unified_Models" ]; then
+    echo "WARNING: UMM is the placeholder '/path/to/Unified_Models'. Set UMM=/your/root first," >&2
+    echo "         e.g.  UMM=/data/Unified_Models ./download_weights.sh" >&2
 fi
-echo "Weight root (UM): $UM"
+echo "Weight root (UMM): $UMM"
 echo "Downloading groups: ${MODELS[*]}"
 
 pids=()

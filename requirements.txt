@@ -1,9 +1,3 @@
-# Core dependencies shared by the Inference and Evaluation pipelines.
-# Model-specific backends (BAGEL, Janus, SEED-X, Show-o2, TokenFlow, UniWorld,
-# OmniGen2, ILLUME+, D-DiT) each require their own upstream repository and a
-# dedicated conda environment — see the `conda_env` field in the model configs
-# under Inference_Pipeline/config/ and that model's official installation guide.
-
 # --- Inference pipeline ---
 torch
 transformers>=4.57   # Qwen3-VL (judge + several backends) requires >=4.57
@@ -14,7 +8,7 @@ pyyaml
 tqdm
 
 # --- Evaluation pipeline ---
-# Local judge backend (default): runs a trained Qwen3-VL checkpoint across GPUs.
+# Local judge backend (default): runs Unison-Judge across GPUs.
 accelerate
-# API judge backend: talks to the DashScope Qwen3-VL-Plus endpoint via the OpenAI SDK.
 openai
+
