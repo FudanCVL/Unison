@@ -85,8 +85,8 @@
     </tr>
   </thead>
   <tbody>
-    <tr><td align="left" nowrap>Gemini 3 Pro</td><td align="left">-</td><td align="right">98.3</td><td align="right">88.1</td><td align="right">86.9</td><td align="right">71.0</td><td align="right">82.8</td><td align="right">76.9</td><td align="right">42.2</td><td align="right">46.5</td><td align="right">43.9</td><td align="right">65.3</td><td align="right">77.4</td><td align="right">71.4</td><td align="center">69.8</td></tr>
-    <tr><td align="left" nowrap>GPT-5.2</td><td align="left">-</td><td align="right">98.6</td><td align="right">86.3</td><td align="right">84.7</td><td align="right">69.7</td><td align="right">85.7</td><td align="right">77.7</td><td align="right">44.8</td><td align="right">58.2</td><td align="right">52.7</td><td align="right">69.1</td><td align="right">71.2</td><td align="right">70.2</td><td align="center">71.3</td></tr>
+    <tr><td align="left" nowrap>Gemini 3 Pro</td><td align="center">-</td><td align="right">98.3</td><td align="right">88.1</td><td align="right">86.9</td><td align="right">71.0</td><td align="right">82.8</td><td align="right">76.9</td><td align="right">42.2</td><td align="right">46.5</td><td align="right">43.9</td><td align="right">65.3</td><td align="right">77.4</td><td align="right">71.4</td><td align="center">69.8</td></tr>
+    <tr><td align="left" nowrap>GPT-5.2</td><td align="center">-</td><td align="right">98.6</td><td align="right">86.3</td><td align="right">84.7</td><td align="right">69.7</td><td align="right">85.7</td><td align="right">77.7</td><td align="right">44.8</td><td align="right">58.2</td><td align="right">52.7</td><td align="right">69.1</td><td align="right">71.2</td><td align="right">70.2</td><td align="center">71.3</td></tr>
   </tbody>
 </table>
 
@@ -150,7 +150,7 @@ UMM=/data/Unified_Models ./setup_envs.sh bagel omnigen2
 Each group clones its upstream repo into `$UMM/<Repo>` and installs it into the corresponding conda env. The script is idempotent; logs go to `setup_logs/`.
 
 
-## ⚖️ Model Weights
+## 🤗 Model Weights
 
 ### Benchmark model weights
 
