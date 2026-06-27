@@ -12,19 +12,17 @@
 <a href="https://huggingface.co/FudanCVL/Unison-Judge"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Evaluator-Unison--Judge-blue?labelColor=white"></a> &nbsp;&nbsp;&nbsp;&nbsp;
 </div>
 
+## 📖 Overview
 
 ***TL;DR: Unison evaluates Unified Multimodal Models (UMMs) by leveraging the synergy between understanding and generation across four dimensions. Unison-Judge, the automatic evaluation model, achieves an 88.7% alignment with human judgments.***
+
+
+<p align="center"><img src="images/overview.png" alt="Unison Overview" width="100%"/></p>
 
 
 ## 🔥 Updates
 - **[2026/06/26]** [Annotations](https://huggingface.co/FudanCVL/Unison-Judge/tree/main/Judge_Consistency) about human consistency are released.
 - **[2026/06/25]** [Unison-Bench](https://huggingface.co/datasets/FudanCVL/Unison) and [Unison-Judge](https://huggingface.co/FudanCVL/Unison-Judge) are released.
-
-## 📖 Overview
-
-
-<p align="center"><img src="images/overview.png" alt="Unison Overview" width="100%"/></p>
-
 
 
 ## 📊 Evaluation Results
