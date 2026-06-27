@@ -246,6 +246,10 @@ If you find this work useful, please cite:
 }
 ```
 
+## 📬 Contact
+
+If you have any questions, feel free to contact us at [liujy24@m.fudan.edu.cn](mailto:liujy24@m.fudan.edu.cn).
+
 ## 📄 License
 
 Released under the [MIT License](LICENSE).
