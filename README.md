@@ -31,7 +31,7 @@
 - [x] Benchmark data
 - [x] Unison-Judge
 - [ ] Evaluation results for more recent open-source models (Emu3.5, Ovis-U1, MMaDA, etc.)
-- [ ] Evaluation results for the latest closed-source models (GPT-5.6 and Gemini 3.1 series)
+- [ ] Evaluation results for the latest closed-source models (GPT-5.5 and Gemini 3.1 series)
 
 
 ## 📊 Evaluation Results
