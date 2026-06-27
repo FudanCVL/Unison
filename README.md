@@ -25,6 +25,15 @@
 - **[2026/06/25]** [Unison-Bench](https://huggingface.co/datasets/FudanCVL/Unison) and [Unison-Judge](https://huggingface.co/FudanCVL/Unison-Judge) are released.
 
 
+## ✅ TODO
+
+- [x] Inference and evaluation scripts
+- [x] Benchmark data
+- [x] Unison-Judge
+- [ ] Evaluation results for more recent open-source models (Emu3.5, Ovis-U1, MMaDA, etc.)
+- [ ] Evaluation results for the latest closed-source models (GPT, Gemini, etc.)
+
+
 ## 📊 Evaluation Results
 
 ### Open-Source Unified Multimodal Models
