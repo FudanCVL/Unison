@@ -239,7 +239,7 @@ If you find this work useful, please cite:
 
 ```bibtex
 @inproceedings{liu2026unison,
-  title     = {Unison: Benchmarking Unified Multimodal Models via Synergistic Understanding and Generation},
+  title     = {{Unison}: Benchmarking Unified Multimodal Models via Synergistic Understanding and Generation},
   author    = {Liu, Jinyu and Shuai, Xincheng and Ding, Henghui and Jiang, Yu-Gang},
   booktitle = {International Conference on Machine Learning},
   year      = {2026}
