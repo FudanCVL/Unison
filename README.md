@@ -29,6 +29,7 @@
 
 - [x] Inference and evaluation scripts
 - [x] Unison Benchmark data and Unison-Judge model weights
+- [ ] Support UMM toolkit ([TorchUMM](https://github.com/AIFrontierLab/TorchUMM)) in the last few days
 - [ ] Evaluation results for more recent open-source models ([Emu3.5](https://github.com/baaivision/Emu3.5), [Ovis-U1](https://github.com/AIDC-AI/Ovis-U1), [Ming](https://github.com/inclusionAI/Ming) series etc.) and the latest closed-source models (GPT-5.5 and Gemini 3.1 series)
 
 
