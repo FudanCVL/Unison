@@ -12,13 +12,6 @@
 <a href="https://huggingface.co/FudanCVL/Unison-Judge"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Evaluator-Unison--Judge-blue?labelColor=white"></a> &nbsp;&nbsp;&nbsp;&nbsp;
 </div>
 
-## 📖 Overview
-
-***TL;DR: Unison evaluates Unified Multimodal Models (UMMs) by leveraging the synergy between understanding and generation across four dimensions. Unison-Judge, the automatic evaluation model, achieves an 88.7% alignment with human judgments.***
-
-
-<p align="center"><img src="images/overview.png" alt="Unison Overview" width="100%"/></p>
-
 
 ## 🔥 Updates
 - **[2026/06/26]** [Annotations](https://huggingface.co/FudanCVL/Unison-Judge/tree/main/Judge_Consistency) about human consistency are released.
@@ -31,6 +24,14 @@
 - [x] Unison Benchmark data and Unison-Judge model weights
 - [ ] The UMM toolkit [TorchUMM](https://github.com/AIFrontierLab/TorchUMM) will support Unison in the last few days
 - [ ] Evaluation results for more recent open-source models ([Emu3.5](https://github.com/baaivision/Emu3.5), [Ovis-U1](https://github.com/AIDC-AI/Ovis-U1), [Ming](https://github.com/inclusionAI/Ming) series etc.) and the latest closed-source models (GPT-5.5 and Gemini 3.1 series)
+
+
+## 📖 Overview
+
+***TL;DR: Unison evaluates Unified Multimodal Models (UMMs) by leveraging the synergy between understanding and generation across four dimensions. Unison-Judge, the automatic evaluation model, achieves an 88.7% alignment with human judgments.***
+
+
+<p align="center"><img src="images/overview.png" alt="Unison Overview" width="100%"/></p>
 
 
 ## 📊 Evaluation Results
